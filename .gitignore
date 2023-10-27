@@ -50,3 +50,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# CMake folder
+cmake-build-debug/
+
+# CLion IDE folder
+.idea/**/workspace.xml

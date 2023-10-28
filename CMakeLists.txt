@@ -4,4 +4,5 @@ project(TransitPilot C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(TransitPilot
-        main.c)
+        main.c
+        debugmalloc.h)

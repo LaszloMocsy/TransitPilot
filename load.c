@@ -2,11 +2,6 @@
 
 #define BUFFER_SIZE 64;
 
-typedef struct FileLines {
-    int count;
-    char **array;
-} FileLines;
-
 /// Returns all lines from the file, each as a dynamic char array. After use, all the dynamic char arrays need to be freed!
 /// \param configFile Source file
 /// \return A custom struct that contains the strings and the count of them

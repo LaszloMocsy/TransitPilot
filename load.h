@@ -5,9 +5,13 @@
 #include <stdbool.h>
 #include "debugmalloc.h"
 
-struct FileLines;
+typedef struct FileLines {
+    int count;
+    char **array;
+} FileLines;
 
 struct FileLines GetEachLineFromFile(FILE *configFile);
+
 bool LoadConfigFile(const char *fileName);
 
 #endif //TRANSITPILOT_LOAD_H

@@ -7,5 +7,6 @@ add_executable(TransitPilot
         main.c
         debugmalloc.h
         load.c
+        load.h
         lines.c
         lines.h)

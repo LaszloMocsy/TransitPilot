@@ -1,9 +1,11 @@
 #include "load.h"
+#include "lines.h"
 
 int main(int argc, char *argv[]) {
     if (argc != 2)
         perror("[E_0x1]: No configuration file was provided!");
 
+    TransitLineArray _AllTransitLines = {0, NULL};
     LoadConfigFile(argv[1]);
 
     bool _loop = true;
@@ -37,9 +39,9 @@ int main(int argc, char *argv[]) {
                 default:
                     // Invalid action submitted
                     break;
-            };
+            }
         } while (action != 0 && !(action >= 1 && action <= 4));
-    };
+    }
 
     return 0;
 }

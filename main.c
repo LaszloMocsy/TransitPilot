@@ -1,9 +1,12 @@
-#include <stdio.h>
-#include <stdbool.h>
+#include "load.h"
 
-int main(void) {
+int main(int argc, char *argv[]) {
+    if (argc != 2)
+        perror("[E_0x1]: No configuration file was provided!");
+
+    LoadConfigFile(argv[1]);
+
     bool _loop = true;
-
     while (_loop) {
         printf("Choose one of the following actions:\n"
                "[ 1 ]  List all lines and stops\n"

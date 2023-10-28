@@ -5,4 +5,6 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(TransitPilot
         main.c
-        debugmalloc.h)
+        debugmalloc.h
+        load.c
+        load.h)

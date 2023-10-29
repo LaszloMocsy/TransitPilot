@@ -15,9 +15,11 @@ typedef struct TransitLineArray {
     TransitLine **array;
 } TransitLineArray;
 
-TransitLine *CreateTransitLine(TransitLineArray *storage, char signature[4]);
+TransitLine *CreateTransitLine(char *signature);
 
 void AddStopToTransitLine(TransitLine *line, char *stop, int time);
+
+void PushTransitLineToTransitLineArray(TransitLineArray *storage, TransitLine *newLine);
 
 void FreeTransitLineArray(TransitLineArray *storage);
 

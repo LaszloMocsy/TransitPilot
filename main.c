@@ -5,17 +5,17 @@ int main(int argc, char *argv[]) {
     if (argc != 2)
         perror("[E_0x1]: No configuration file was provided!");
 
-    TransitLineArray _AllTransitLines = {0, NULL};
-    LoadConfigFile(argv[1]);
+    TransitLineArray allTransitLines = {0, NULL};
+    bool _loop = LoadConfigFile(argv[1], &allTransitLines);
 
-    bool _loop = true;
     while (_loop) {
         printf("Choose one of the following actions:\n"
-               "[ 1 ]  List all lines and stops\n"
+               "[ 1 ]  List all lines and stops (%d lines)\n"
                "[ 2 ]  Modify starting stop\n"
                "[ 3 ]  Modify ending stop\n"
                "[ 4 ]  Plan a route\n"
-               "[ 0 ]  Exit program\n");
+               "[ 0 ]  Exit program\n",
+               allTransitLines.count);
         int action;
         do {
             printf("> ");
@@ -43,5 +43,6 @@ int main(int argc, char *argv[]) {
         } while (action != 0 && !(action >= 1 && action <= 4));
     }
 
+    FreeTransitLineArray(&allTransitLines);
     return 0;
 }

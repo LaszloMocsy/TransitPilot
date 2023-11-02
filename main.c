@@ -2,11 +2,14 @@
 #include "lines.h"
 
 int main(int argc, char *argv[]) {
-    if (argc != 2)
+    if (argc != 2) {
         perror("[E_0x1]: No configuration file was provided!");
+        return 1;
+    }
 
     TransitLineArray allTransitLines = {0, NULL};
     bool _loop = LoadConfigFile(argv[1], &allTransitLines);
+    if (!_loop) return 2;
 
     while (_loop) {
         printf("Choose one of the following actions:\n"

@@ -6,18 +6,16 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    TransitLineArray allTransitLines = {0, NULL};
-    bool _loop = LoadConfigFile(argv[1], &allTransitLines);
+    bool _loop = LoadConfiguration(argv[1]);
     if (!_loop) return 2;
 
     while (_loop) {
         printf("Choose one of the following actions:\n"
-               "[ 1 ]  List all lines and stops (%d lines)\n"
+               "[ 1 ]  List all lines and stops\n"
                "[ 2 ]  Modify starting stop\n"
                "[ 3 ]  Modify ending stop\n"
                "[ 4 ]  Plan a route\n"
-               "[ 0 ]  Exit program\n",
-               allTransitLines.count);
+               "[ 0 ]  Exit program\n");
         int action;
         do {
             printf("> ");
@@ -39,12 +37,11 @@ int main(int argc, char *argv[]) {
                     _loop = false;
                     break;
                 default:
-                    // Invalid action submitted
+                    // Invalid action was submitted, it will ask again for an action
                     break;
             }
         } while (action != 0 && !(action >= 1 && action <= 4));
     }
 
-    FreeTransitLineArray(&allTransitLines);
     return 0;
 }

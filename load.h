@@ -5,6 +5,12 @@
 #include <stdbool.h>
 #include "debugmalloc.h"
 
+typedef enum ProcessStage {
+    ProcessSign,
+    ProcessStop,
+    ProcessTime
+} ProcessStage;
+
 bool LoadConfiguration(const char *fileName);
 
 #endif //TRANSITPILOT_LOAD_H

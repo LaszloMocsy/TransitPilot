@@ -1,6 +1,9 @@
 #include "load.h"
+#include "transit.h"
 
 int main(int argc, char *argv[]) {
+    ArrayOfTransitStops transitStopsArray = {0, NULL};
+
     if (argc != 2) {
         perror("[E_0x1]: No configuration file was provided!");
         return 1;

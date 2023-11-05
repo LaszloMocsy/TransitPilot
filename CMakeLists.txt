@@ -8,4 +8,6 @@ add_executable(TransitPilot
         debugmalloc.h
         load.c
         load.h
+        transit.c
+        transit.h
 )

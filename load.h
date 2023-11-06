@@ -4,23 +4,15 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "debugmalloc.h"
-#include "lines.h"
+#include "tstop.h"
+#include "tline.h"
 
-typedef enum ProcessStep {
-    ReadSignature,
-    ReadStop,
-    ReadTime
-} ProcessStep;
+typedef enum ProcessStage {
+    ProcessSign,
+    ProcessStop,
+    ProcessTime
+} ProcessStage;
 
-typedef struct FileLines {
-    int count;
-    char **array;
-} FileLines;
-
-FileLines GetEachLineFromFile(FILE *configFile);
-
-TransitLine *ProcessFileLine(const char *fileLine);
-
-bool LoadConfigFile(const char *fileName, TransitLineArray *storage);
+bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArray *linesArray);
 
 #endif //TRANSITPILOT_LOAD_H

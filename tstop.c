@@ -28,7 +28,7 @@ int TStopsArray_push(TStopsArray *array, char *name, int transfer) {
             isStopExists = true;
             stop = array->items[i];
             id = i;
-            for (int j = 0; j < !isTransferExists && stop->transferCount; ++j)
+            for (int j = 0; !isTransferExists && j < stop->transferCount; ++j)
                 if (stop->transfers[j] == transfer)
                     isTransferExists = true;
         }

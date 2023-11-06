@@ -12,4 +12,6 @@ add_executable(TransitPilot
         tstop.h
         tline.c
         tline.h
+        menu.c
+        menu.h
 )

@@ -17,7 +17,7 @@ bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArra
     // Read config file
     char character;
     char *data = NULL;
-    int dataP, dataMaxLength;
+    int dataP, dataMaxLength, lastTime;
     bool isNewTLine = true;
     ProcessStage currentStage;
 
@@ -26,6 +26,7 @@ bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArra
             currentStage = ProcessSign;
 
         if (data == NULL) {
+            lastTime = -1;
             dataP = 0;
             dataMaxLength = BUFFER_SIZE;
             data = (char *) malloc(sizeof(char) * dataMaxLength);
@@ -38,16 +39,19 @@ bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArra
             data[dataP] = '\0';
 
             // Process data ("string" between ';' and '\n')
+            int id;
             switch (currentStage) {
                 case ProcessSign:
                     TLinesArray_push(linesArray, data);
                     currentStage = ProcessStop;
                     break;
                 case ProcessStop:
-                    TStopsArray_push(stopsArray, data, -1);
+                    id = TStopsArray_push(stopsArray, data, linesArray->count - 1);
+                    TLine_AddStop(linesArray->items[linesArray->count - 1], id, lastTime);
                     currentStage = ProcessTime;
                     break;
                 case ProcessTime:
+                    lastTime = atoi(data);
                     free(data);
                     currentStage = ProcessStop;
                     break;

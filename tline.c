@@ -13,6 +13,19 @@ TLine *TLine_init(char *sign) {
     return new;
 }
 
+///
+/// \param line
+/// \param stopId
+/// \param time
+void TLine_AddStop(TLine *line, int stopId, int time) {
+    line->stops = (int *) realloc(line->stops, sizeof(int) * ++line->stopsCount);
+    line->stops[line->stopsCount - 1] = stopId;
+    if (line->stopsCount > 1) {
+        line->times = (int *) realloc(line->times, sizeof(int) * ++line->timeCount);
+        line->times[line->timeCount - 1] = time;
+    }
+}
+
 /// Push a new <c>TLine</c> to an existing <c>TLinesArray</c>
 /// \param array The existing array
 /// \param sign The sign of the new <c>TLine</c>

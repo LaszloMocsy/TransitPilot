@@ -22,6 +22,8 @@ typedef struct {
 
 TLine *TLine_init(char* sign);
 
+void TLine_AddStop(TLine *line, int stopId, int time);
+
 void TLinesArray_push(TLinesArray *array, char* sign);
 
 void TLine_free(TLine *line);

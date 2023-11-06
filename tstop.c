@@ -15,16 +15,19 @@ TStop *TStop_init(char *name) {
 /// \param array The existing array
 /// \param name The name of the new <c>TStop</c>
 /// \param transfer The id of the transfer
-void TStopsArray_push(TStopsArray *array, char *name, int transfer) {
+/// \return The stop's id in the array
+int TStopsArray_push(TStopsArray *array, char *name, int transfer) {
     TStop *stop = NULL;
     bool isStopExists = false;
     bool isTransferExists = false;
+    int id = array->count;
 
     for (int i = 0; !isStopExists && i < array->count; ++i)
         if (strcmp(array->items[i]->name, name) == 0) {
             free(name);
             isStopExists = true;
             stop = array->items[i];
+            id = i;
             for (int j = 0; j < !isTransferExists && stop->transferCount; ++j)
                 if (stop->transfers[j] == transfer)
                     isTransferExists = true;
@@ -40,6 +43,8 @@ void TStopsArray_push(TStopsArray *array, char *name, int transfer) {
         array->items = (TStop **) realloc(array->items, sizeof(TStop * ) * (++array->count));
         array->items[array->count - 1] = stop;
     }
+
+    return id;
 }
 
 /// Free up dynamically allocated <c>TStop</c>

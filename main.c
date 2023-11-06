@@ -66,5 +66,6 @@ int main(int argc, char *argv[]) {
     }
 
     TStopsArray_free(&stopsArray);
+    TLinesArray_free(&linesArray);
     return 0;
 }

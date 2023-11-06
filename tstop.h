@@ -20,7 +20,7 @@ typedef struct {
 
 TStop *TStop_init(char *name);
 
-void TStopsArray_push(TStopsArray *array, char *name, int transfer);
+int TStopsArray_push(TStopsArray *array, char *name, int transfer);
 
 void TStop_free(TStop *stop);
 

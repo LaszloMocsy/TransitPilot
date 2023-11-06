@@ -16,30 +16,30 @@ TStop *TStop_init(char *name) {
 /// \param name The name of the new <c>TStop</c>
 /// \param transfer The id of the transfer
 void TStopsArray_push(TStopsArray *array, char *name, int transfer) {
-    for (int i = 0; i < array->count; ++i)
+    TStop *stop = NULL;
+    bool isStopExists = false;
+    bool isTransferExists = false;
+
+    for (int i = 0; !isStopExists && i < array->count; ++i)
         if (strcmp(array->items[i]->name, name) == 0) {
             free(name);
-
-            TStop *stop = array->items[i];
-            for (int j = 0; j < stop->transferCount; ++j)
+            isStopExists = true;
+            stop = array->items[i];
+            for (int j = 0; j < !isTransferExists && stop->transferCount; ++j)
                 if (stop->transfers[j] == transfer)
-                    return;
-
-            //Add new transfer to an existing `TStop` in `TStopsArray`
-            stop->transfers = (int *) realloc(stop->transfers, sizeof(int) * ++stop->transferCount);
-            stop->transfers[stop->transferCount - 1] = transfer;
-
-            return;
+                    isTransferExists = true;
         }
 
-    //TODO: Make it simple, use to variable 1 for the stop and one for the transfer
-    TStop *newStop = TStop_init(name);
-    //Add new transfer to the `TStop`
-    newStop->transfers = (int *) realloc(newStop->transfers, sizeof(int) * ++newStop->transferCount);
-    newStop->transfers[newStop->transferCount - 1] = transfer;
-    // Add new `TStop` to the array
-    array->items = (TStop **) realloc(array->items, sizeof(TStop *) * (++array->count));
-    array->items[array->count - 1] = newStop;
+    if (stop == NULL)
+        stop = TStop_init(name);
+    if (!isTransferExists) {
+        stop->transfers = (int *) realloc(stop->transfers, sizeof(int) * ++stop->transferCount);
+        stop->transfers[stop->transferCount - 1] = transfer;
+    }
+    if (!isStopExists) {
+        array->items = (TStop **) realloc(array->items, sizeof(TStop *) * (++array->count));
+        array->items[array->count - 1] = stop;
+    }
 }
 
 /// Free up dynamically allocated <c>TStop</c>

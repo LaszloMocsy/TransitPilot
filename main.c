@@ -6,6 +6,7 @@
 int main(int argc, char *argv[]) {
     TStopsArray stopsArray = {0, NULL};
     TLinesArray linesArray = {0, NULL};
+    int stopA = -1, stopB = -1;
 
     if (argc != 2) {
         perror("[E_0x1]: No configuration file was provided!");
@@ -19,12 +20,14 @@ int main(int argc, char *argv[]) {
         printf("Choose one of the following actions:\n"
                "[ 1 ]  List all stops (%d)\n"
                "[ 2 ]  List all lines (%d)\n"
-               "[ 3 ]  Modify starting stop\n"
-               "[ 4 ]  Modify ending stop\n"
-               "[ 5 ]  Plan a route\n"
+               "[ 3 ]  Modify stop A (%s)\n"
+               "[ 4 ]  Modify stop B (%s)\n"
+               "[ 5 ]  Plan a route between stop A and B\n"
                "[ 0 ]  Exit program\n",
                stopsArray.count,
-               linesArray.count);
+               linesArray.count,
+               stopA == -1 ? "---" : stopsArray.items[stopA]->name,
+               stopB == -1 ? "---" : stopsArray.items[stopB]->name);
         int action;
         do {
             printf("> ");
@@ -38,9 +41,11 @@ int main(int argc, char *argv[]) {
                     break;
                 case 3:
                     printf("\n--> Modify starting stop\n\n");
+                    ReadStopId(&stopA, stopsArray.count - 1);
                     break;
                 case 4:
                     printf("\n--> Modify ending stop\n\n");
+                    ReadStopId(&stopB, stopsArray.count - 1);
                     break;
                 case 5:
                     printf("\n--> Plan a route\n\n");

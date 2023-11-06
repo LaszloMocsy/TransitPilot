@@ -9,4 +9,6 @@ void ListAllStops(TStopsArray stops, TLinesArray lines);
 
 void ListAllLines(TLinesArray lines, TStopsArray stops);
 
+void ReadStopId(int *output, int max);
+
 #endif //TRANSITPILOT_MENU_H

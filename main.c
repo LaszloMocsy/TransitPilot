@@ -1,21 +1,32 @@
 #include "load.h"
 #include "tstop.h"
+#include "tline.h"
 
 int main(int argc, char *argv[]) {
     TStopsArray stopsArray = {0, NULL};
+    TLinesArray linesArray = {0, NULL};
 
     if (argc != 2) {
         perror("[E_0x1]: No configuration file was provided!");
         return 1;
     }
 
-    bool _loop = LoadConfiguration(argv[1], &stopsArray);
+    bool _loop = LoadConfiguration(argv[1], &stopsArray, &linesArray);
     if (!_loop) return 2;
 
     //DEBUG:START
     printf("\n==: stopsArray count: %d :==\n\n", stopsArray.count);
     for (int i = 0; i < stopsArray.count; ++i) {
         printf("%s :: %d\n", stopsArray.items[i]->name, stopsArray.items[i]->transferCount);
+    }
+    printf("\n\n");
+    //DEBUG:END
+
+    //DEBUG:START
+    printf("\n==: linesArray count: %d :==\n\n", linesArray.count);
+    for (int i = 0; i < linesArray.count; ++i) {
+        printf("%s :: %d - %d\n", linesArray.items[i]->sign, linesArray.items[i]->stopsCount,
+               linesArray.items[i]->timeCount);
     }
     printf("\n\n");
     //DEBUG:END

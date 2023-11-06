@@ -6,7 +6,7 @@
 /// \param fileName The name of the configuration file
 /// \param stopsArray An array of <c>TStop</c>s
 /// \return `true` if the process was successful, otherwise `false`
-bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray) {
+bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArray *linesArray) {
     // Open config file
     FILE *configFile = fopen(fileName, "r");
     if (configFile == NULL) {
@@ -40,17 +40,14 @@ bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray) {
             // Process data ("string" between ';' and '\n')
             switch (currentStage) {
                 case ProcessSign:
-//                    printf("---==O: %s :O==---\n", data); //DEBUG
-                    free(data);
+                    TLinesArray_push(linesArray, data);
                     currentStage = ProcessStop;
                     break;
                 case ProcessStop:
                     TStopsArray_push(stopsArray, data, -1);
-//                    printf("Stop: %s\n", data); //DEBUG
                     currentStage = ProcessTime;
                     break;
                 case ProcessTime:
-//                    printf("Time: %d\n", atoi(data)); //DEBUG
                     free(data);
                     currentStage = ProcessStop;
                     break;

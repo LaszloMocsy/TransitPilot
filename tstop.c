@@ -4,11 +4,11 @@
 /// \param name Name of the <c>TStop</c>
 /// \return The pointer for the newly created, empty <c>TStop</c>
 TStop *TStop_init(char *name) {
-    TStop *p = (TStop *) malloc(sizeof(TStop));
-    p->name = name;
-    p->transferCount = 0;
-    p->transfers = NULL;
-    return p;
+    TStop *new = (TStop *) malloc(sizeof(TStop));
+    new->name = name;
+    new->transferCount = 0;
+    new->transfers = NULL;
+    return new;
 }
 
 /// Push a new <c>TStop</c> to an existing <c>TStopsArray</c>
@@ -37,7 +37,7 @@ void TStopsArray_push(TStopsArray *array, char *name, int transfer) {
         stop->transfers[stop->transferCount - 1] = transfer;
     }
     if (!isStopExists) {
-        array->items = (TStop **) realloc(array->items, sizeof(TStop *) * (++array->count));
+        array->items = (TStop **) realloc(array->items, sizeof(TStop * ) * (++array->count));
         array->items[array->count - 1] = stop;
     }
 }

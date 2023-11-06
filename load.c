@@ -4,8 +4,9 @@
 
 /// Load the specified configuration file if it exists
 /// \param fileName The name of the configuration file
+/// \param stopsArray An array of <c>TStop</c>s
 /// \return `true` if the process was successful, otherwise `false`
-bool LoadConfiguration(const char *fileName) {
+bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray) {
     // Open config file
     FILE *configFile = fopen(fileName, "r");
     if (configFile == NULL) {
@@ -39,21 +40,22 @@ bool LoadConfiguration(const char *fileName) {
             // Process data ("string" between ';' and '\n')
             switch (currentStage) {
                 case ProcessSign:
-                    printf("---==O: %s :O==---\n", data);
+//                    printf("---==O: %s :O==---\n", data); //DEBUG
+                    free(data);
                     currentStage = ProcessStop;
                     break;
                 case ProcessStop:
-                    printf("Stop: %s\n", data);
+                    TStopsArray_push(stopsArray, data, -1);
+//                    printf("Stop: %s\n", data); //DEBUG
                     currentStage = ProcessTime;
                     break;
                 case ProcessTime:
-                    printf("Time: %d\n", atoi(data));
-//                    free(data); // FIXME: Uncomment this line after debug
+//                    printf("Time: %d\n", atoi(data)); //DEBUG
+                    free(data);
                     currentStage = ProcessStop;
                     break;
             }
 
-            free(data); //FIXME: Remove to reserve the data string (for signs and stops)
             data = NULL;
         } else
             data[dataP++] = character;

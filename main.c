@@ -2,15 +2,23 @@
 #include "transit.h"
 
 int main(int argc, char *argv[]) {
-    ArrayOfTransitStops transitStopsArray = {0, NULL};
+    TStopsArray stopsArray = {0, NULL};
 
     if (argc != 2) {
         perror("[E_0x1]: No configuration file was provided!");
         return 1;
     }
 
-    bool _loop = LoadConfiguration(argv[1]);
+    bool _loop = LoadConfiguration(argv[1], &stopsArray);
     if (!_loop) return 2;
+
+    //DEBUG:START
+    printf("\n==: stopsArray count: %d :==\n\n", stopsArray.count);
+    for (int i = 0; i < stopsArray.count; ++i) {
+        printf("%s :: %d\n", stopsArray.items[i]->name, stopsArray.items[i]->transferCount);
+    }
+    printf("\n\n");
+    //DEBUG:END
 
     while (_loop) {
         printf("Choose one of the following actions:\n"
@@ -46,5 +54,6 @@ int main(int argc, char *argv[]) {
         } while (action != 0 && !(action >= 1 && action <= 4));
     }
 
+    TStopsArray_free(&stopsArray);
     return 0;
 }

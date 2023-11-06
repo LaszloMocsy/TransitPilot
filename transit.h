@@ -1,24 +1,29 @@
 #ifndef TRANSITPILOT_TRANSIT_H
 #define TRANSITPILOT_TRANSIT_H
 
+#include <stdbool.h>
+#include <string.h>
 #include "debugmalloc.h"
 
 /// A transit stop, that have a name and an array of transferable lines
 typedef struct {
     char *name;
+    int transferCount;
     int *transfers;
-} TransitStop;
+} TStop;
 
-/// Struct for dynamic <c>TransitStop</c> array
+/// Struct for dynamic <c>TStop</c> array
 typedef struct {
     int count;
-    TransitStop *items;
-} ArrayOfTransitStops;
+    TStop **items;
+} TStopsArray;
 
-TransitStop *TransitStop_init();
+TStop *TStop_init(char *name);
 
-void TransitStop_free(TransitStop *stop);
+void TStopsArray_push(TStopsArray *array, char *name, int transfer);
 
-void ArrayOfTransitStops_free(ArrayOfTransitStops *array);
+void TStop_free(TStop *stop);
+
+void TStopsArray_free(TStopsArray *array);
 
 #endif //TRANSITPILOT_TRANSIT_H

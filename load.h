@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "debugmalloc.h"
+#include "transit.h"
 
 typedef enum ProcessStage {
     ProcessSign,
@@ -11,6 +12,6 @@ typedef enum ProcessStage {
     ProcessTime
 } ProcessStage;
 
-bool LoadConfiguration(const char *fileName);
+bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray);
 
 #endif //TRANSITPILOT_LOAD_H

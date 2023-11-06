@@ -1,5 +1,5 @@
 #include "load.h"
-#include "transit.h"
+#include "tstop.h"
 
 int main(int argc, char *argv[]) {
     TStopsArray stopsArray = {0, NULL};

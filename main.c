@@ -14,30 +14,15 @@ int main(int argc, char *argv[]) {
     bool _loop = LoadConfiguration(argv[1], &stopsArray, &linesArray);
     if (!_loop) return 2;
 
-    //DEBUG:START
-    printf("\n==: stopsArray count: %d :==\n\n", stopsArray.count);
-    for (int i = 0; i < stopsArray.count; ++i) {
-        printf("%s :: %d\n", stopsArray.items[i]->name, stopsArray.items[i]->transferCount);
-    }
-    printf("\n\n");
-    //DEBUG:END
-
-    //DEBUG:START
-    printf("\n==: linesArray count: %d :==\n\n", linesArray.count);
-    for (int i = 0; i < linesArray.count; ++i) {
-        printf("%s :: %d - %d\n", linesArray.items[i]->sign, linesArray.items[i]->stopsCount,
-               linesArray.items[i]->timeCount);
-    }
-    printf("\n\n");
-    //DEBUG:END
-
     while (_loop) {
         printf("Choose one of the following actions:\n"
-               "[ 1 ]  List all lines and stops\n"
+               "[ 1 ]  List all lines (%d) and stops (%d)\n"
                "[ 2 ]  Modify starting stop\n"
                "[ 3 ]  Modify ending stop\n"
                "[ 4 ]  Plan a route\n"
-               "[ 0 ]  Exit program\n");
+               "[ 0 ]  Exit program\n",
+               linesArray.count,
+               stopsArray.count);
         int action;
         do {
             printf("> ");

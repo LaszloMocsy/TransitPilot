@@ -5,6 +5,7 @@
 /// Load the specified configuration file if it exists
 /// \param fileName The name of the configuration file
 /// \param stopsArray An array of <c>TStop</c>s
+/// \param linesArray An array of <c>TLine</c>s
 /// \return `true` if the process was successful, otherwise `false`
 bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArray *linesArray) {
     // Open config file

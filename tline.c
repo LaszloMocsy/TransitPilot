@@ -13,10 +13,10 @@ TLine *TLine_init(char *sign) {
     return new;
 }
 
-///
-/// \param line
-/// \param stopId
-/// \param time
+/// Add a stop's id to an existing <c>TLine</c>
+/// \param line The <c>TLine</c> that has the stop
+/// \param stopId The id of the <c>TStop</c>
+/// \param time The travelling time to the stop on the line
 void TLine_AddStop(TLine *line, int stopId, int time) {
     line->stops = (int *) realloc(line->stops, sizeof(int) * ++line->stopsCount);
     line->stops[line->stopsCount - 1] = stopId;

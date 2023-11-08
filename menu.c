@@ -45,4 +45,5 @@ void ReadStopId(int *output, int max) {
         scanf("%d", &input);
     } while (input < 0 || input > max);
     *output = input;
+    printf("\n");
 }

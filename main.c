@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
                     ReadStopId(&stopB, stopsArray.count - 1);
                     break;
                 case 5:
-                    printf("\n--> Plan a route\n\n");
+                    printf("\n=== Plan a route ===\n\n");
                     PlanRoute(stopsArray, linesArray, stopA, stopB);
                     break;
                 case 0:

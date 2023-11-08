@@ -28,7 +28,46 @@ void PlanRoute(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_i
         return;
     }
 
-    bool isOnSameLine = IsOnSameLine(*stops->items[stopA_id], *stops->items[stopB_id]);
-    printf("\nThe two stops are %s\n\n", isOnSameLine ? "on the same line!" : "NOT on the same line!");
-    //FIXME: Create new function for checking if the two stops are on the same line
+    int routes_count = 0;
+    Route *routes = NULL;
+
+    // Generate the starting point(s)
+    for (int i = 0; i < stops->items[stopA_id]->transferCount; ++i) {
+        routes = (Route *) realloc(routes, sizeof(Route) * ++routes_count);
+        int *spStops = malloc(sizeof(int));
+        int *spLines = malloc(sizeof(int));
+
+        spStops[0] = stopA_id;
+        spLines[0] = stops->items[stopA_id]->transfers[i];
+
+        Route newStartingPoint = {spStops, spLines, 1, 1};
+        routes[i] = newStartingPoint;
+    }
+
+    // Extend each routes' end
+    for (int i = 0, iMax = routes_count; i < iMax; ++i) {
+        Route *currentRoute = &routes[i];
+        if (currentRoute->stops_count == currentRoute->lines_count) {
+            int lastStop_id = currentRoute->stops[currentRoute->stops_count - 1];
+            if (IsOnSameLine(*stops->items[lastStop_id], *stops->items[stopB_id])) {
+                currentRoute->stops = (int *) realloc(currentRoute->stops, sizeof(int) * ++currentRoute->stops_count);
+                currentRoute->stops[currentRoute->stops_count - 1] = stopB_id;
+            }
+        } // else, the route has been found (do not touch the route)
+    }
+
+    //DEBUG: Print out all the starting point (routes)
+    for (int i = 0; i < routes_count; ++i) {
+        printf("%d. ", i);
+        Route *currentRoute = &routes[i];
+        for (int j = 0; j < currentRoute->stops_count; ++j) {
+            printf(" %s", stops->items[currentRoute->stops[j]]->name);
+            if (j < currentRoute->lines_count)
+                printf(" --[%s]->", lines->items[currentRoute->lines[j]]->sign);
+        }
+        printf("\n");
+    }
+    printf("\n");
+
+    //FIXME: Free all routes!
 }

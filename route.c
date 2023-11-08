@@ -108,13 +108,6 @@ void PlanRoute(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_i
 
     // Free the chained array (distances_head)
     Distance_free(distances_head);
-
-    /*
-    // Check if the two stop is on the same line
-//    int *sameLine = GetSameLines(*stops.items[stopA_id], *stops.items[stopB_id]);
-//    printf("Stop A and B are %s\n\n", sameLine != NULL ? "on the same line!" : "NOT on the same line!");
-//    free(sameLine);
-     */
 }
 
 void Distance_free(Distance *head) {

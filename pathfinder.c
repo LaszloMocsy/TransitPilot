@@ -1,10 +1,10 @@
-#include "route.h"
+#include "pathfinder.h"
 
 /// Check if the two given stops are on tha same line
 /// \param stopA <c>TStop</c> from all the stops
 /// \param stopB Second <c>TStop</c> from all the stops
 /// \return <c>true</c>, if the two stops are on the same line, otherwise <c>false</c>
-bool IsOnSameLine(TStop stopA, TStop stopB) {
+bool IsStopsOnSameLine(TStop stopA, TStop stopB) {
     for (int i = 0; i < stopA.transferCount; ++i) {
         for (int j = 0; j < stopB.transferCount; ++j) {
             if (stopA.transfers[i] == stopB.transfers[j])
@@ -19,7 +19,7 @@ bool IsOnSameLine(TStop stopA, TStop stopB) {
 /// \param lines The array that contains all <c>TLine</c>s
 /// \param stopA_id The id of stop A
 /// \param stopB_id The id of stop B
-void PlanRoute(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_id) {
+void FindPath(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_id) {
     if (stopA_id == -1 || stopB_id == -1) {
         printf("Stop A and B cannot be empty!\n\n");
         return;
@@ -49,7 +49,7 @@ void PlanRoute(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_i
         Route *currentRoute = &routes[i];
         if (currentRoute->stops_count == currentRoute->lines_count) {
             int lastStop_id = currentRoute->stops[currentRoute->stops_count - 1];
-            if (IsOnSameLine(*stops->items[lastStop_id], *stops->items[stopB_id])) {
+            if (IsStopsOnSameLine(*stops->items[lastStop_id], *stops->items[stopB_id])) {
                 currentRoute->stops = (int *) realloc(currentRoute->stops, sizeof(int) * ++currentRoute->stops_count);
                 currentRoute->stops[currentRoute->stops_count - 1] = stopB_id;
             }

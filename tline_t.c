@@ -1,4 +1,4 @@
-#include "tline.h"
+#include "tline_t.h"
 
 /// Dynamically allocated `TLine`. <b style="color: red">Free it after use with <c>TransitLine_free()</c> method!</b>
 /// \param sign Sign of the <c>TLine</c>

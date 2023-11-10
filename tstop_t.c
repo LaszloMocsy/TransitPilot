@@ -1,4 +1,4 @@
-#include "tstop.h"
+#include "tstop_t.h"
 
 /// Dynamically allocated `TStop`. <b style="color: red">Free it after use with <c>TransitStop_free()</c> method!</b>
 /// \param name Name of the <c>TStop</c>

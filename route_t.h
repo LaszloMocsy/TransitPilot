@@ -2,8 +2,8 @@
 #define TRANSITPILOT_ROUTE_T_H
 
 #include "debugmalloc.h"
-#include "tstop.h"
-#include "tline.h"
+#include "tstop_t.h"
+#include "tline_t.h"
 
 typedef struct Route_t {
     int *stops, *lines;

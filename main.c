@@ -1,8 +1,8 @@
 #include "load.h"
-#include "tstop.h"
-#include "tline.h"
+#include "tstop_t.h"
+#include "tline_t.h"
 #include "menu.h"
-#include "route.h"
+#include "pathfinder.h"
 
 int main(int argc, char *argv[]) {
     TStopsArray stopsArray = {0, NULL};
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
                     break;
                 case 5:
                     printf("\n=== Plan a route ===\n\n");
-                    PlanRoute(&stopsArray, &linesArray, stopA, stopB);
+                    FindPath(&stopsArray, &linesArray, stopA, stopB);
                     break;
                 case 0:
                     _loop = false;

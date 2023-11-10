@@ -1,5 +1,5 @@
-#ifndef TRANSITPILOT_TLINE_H
-#define TRANSITPILOT_TLINE_H
+#ifndef TRANSITPILOT_TLINE_T_H
+#define TRANSITPILOT_TLINE_T_H
 
 #include <stdbool.h>
 #include <string.h>
@@ -30,4 +30,4 @@ void TLine_free(TLine *line);
 
 void TLinesArray_free(TLinesArray *array);
 
-#endif //TRANSITPILOT_TLINE_H
+#endif //TRANSITPILOT_TLINE_T_H

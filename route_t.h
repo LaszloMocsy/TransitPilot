@@ -12,6 +12,8 @@ typedef struct Route_t {
 
 Route *Route_init(int firstStop, int firstLine);
 
+void Route_free(Route *pRoute);
+
 Route *Route_push(Route *array_head, Route *pRoute);
 
 Route *Route_pop(Route *array_head, Route *pRoute);

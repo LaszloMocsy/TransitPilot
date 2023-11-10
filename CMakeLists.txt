@@ -16,4 +16,6 @@ add_executable(TransitPilot
         menu.h
         route.c
         route.h
+        route_t.c
+        route_t.h
 )

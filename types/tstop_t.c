@@ -37,6 +37,12 @@ TStop *TStop_push(TStop *head, TStop *stop) {
 }
 
 void TStop_addTransfer(TStop *stop, TLine *line) {
+    // Check if transfer is already added
+    bool isAdded = false;
+    for (int i = 0; stop->transfers[i] != NULL; ++i)
+        if (stop->transfers[i] == line) isAdded = true;
+    if (isAdded) return;
+
     int newSize = TStop_GetNumberOfTransfers(stop) + 2;
     stop->transfers = (TLine **) realloc(stop->transfers, sizeof(TLine *) * newSize);
     stop->transfers[newSize - 2] = line;

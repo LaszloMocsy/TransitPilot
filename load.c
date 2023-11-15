@@ -50,7 +50,8 @@ bool LoadConfiguration(const char *fileName, TStop **stops_head, TLine **lines_h
                     if (currentStop == NULL) {
                         currentStop = TStop_init(data);
                         *stops_head = TStop_push(*stops_head, currentStop);
-                    }
+                    } else
+                        free(data); // The stop is already existing. Free up the unused text
 
                     // Add the latest line to the stop's transfers
                     TStop_addTransfer(currentStop, latestLineCreated);

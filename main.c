@@ -56,16 +56,16 @@ int main(int argc, char *argv[]) {
                     }
                     break;
                 case 3:
-                    stopA = ("Modify starting stop", TStop_GetCount(stops_head) - 1, stops_head);
+                    stopA = GetStopFromInput("Modify starting stop", TStop_GetCount(stops_head) - 1, stops_head);
                     printf("\n");
                     break;
                 case 4:
-                    stopB = ("Modify ending stop", TStop_GetCount(stops_head) - 1, stops_head);
+                    stopB = GetStopFromInput("Modify ending stop", TStop_GetCount(stops_head) - 1, stops_head);
                     printf("\n");
                     break;
                 case 5:
                     printf("\n=== Plan a route ===\n\n");
-                    FindPath(stops_head, lines_head, stopA, stopB);
+                    FindPath(stopA, stopB);
                     break;
                 case 0:
                     _loop = false;

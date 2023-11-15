@@ -22,4 +22,6 @@ void Route_addData(Route *pRoute, int stop_id, int line_id);
 
 bool Route_IsDone(Route *pRoute);
 
+void Route_PrintOut(Route *pRoute, TStopsArray *stops, TLinesArray *lines);
+
 #endif //TRANSITPILOT_ROUTE_T_H

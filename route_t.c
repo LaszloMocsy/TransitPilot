@@ -26,7 +26,7 @@ void Route_free(Route *pRoute) {
     }
 }
 
-/// Add a new <c>Route</c> to the chained array
+/// Add a new <c>Route</c> to the end of the chained array
 /// \param array_head The head of the chained array
 /// \param pRoute The new item that needs to be added
 /// \return The memory address of the head of the chained array
@@ -96,12 +96,11 @@ bool Route_IsDone(Route *pRoute) {
 /// \param pRoute The <c>Route</c> that will be printed out
 /// \param stops The array of stops
 /// \param lines The array of lines
-void Route_printOut(Route *pRoute, TStopsArray *stops, TLinesArray *lines) {
+void Route_PrintOut(Route *pRoute, TStopsArray *stops, TLinesArray *lines) {
     int i = 0;
-    while (pRoute->lines[i] != -1) {
+    for (; pRoute->lines[i] != -1; ++i) {
         if (i != 0) printf(" ");
         printf("%s --[%s]->", stops->items[pRoute->stops[i]]->name, lines->items[pRoute->lines[i]]->sign);
-        ++i;
     }
     if (Route_IsDone(pRoute))
         printf("%s", stops->items[pRoute->stops[i]]->name);

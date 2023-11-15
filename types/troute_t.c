@@ -105,4 +105,5 @@ void TRoute_PrintOut(TRoute *route) {
     }
     if (TRoute_IsDone(route))
         printf("%s", route->stops[lines_count]->name);
+    printf("\n");
 }

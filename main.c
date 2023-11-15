@@ -57,11 +57,9 @@ int main(int argc, char *argv[]) {
                     break;
                 case 3:
                     stopA = GetStopFromInput("Modify starting stop", TStop_GetCount(stops_head) - 1, stops_head);
-                    printf("\n");
                     break;
                 case 4:
                     stopB = GetStopFromInput("Modify ending stop", TStop_GetCount(stops_head) - 1, stops_head);
-                    printf("\n");
                     break;
                 case 5:
                     printf("\n=== Plan a route ===\n\n");
@@ -75,6 +73,7 @@ int main(int argc, char *argv[]) {
                     break;
             }
         } while (action != 0 && !(action >= 1 && action <= 5));
+        printf("\n");
     }
 
     TStop_freeArray(stops_head);

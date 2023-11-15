@@ -2,12 +2,7 @@
 
 #define BUFFER_SIZE 64
 
-/// Load the specified configuration file if it exists
-/// \param fileName The name of the configuration file
-/// \param stopsArray An array of <c>TStop</c>s
-/// \param linesArray An array of <c>TLine</c>s
-/// \return `true` if the process was successful, otherwise `false`
-bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArray *linesArray) {
+bool LoadConfiguration(const char *fileName, TStop **stops_head, TLine **lines_head) {
     // Open config file
     FILE *configFile = fopen(fileName, "r");
     if (configFile == NULL) {
@@ -18,8 +13,9 @@ bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArra
     // Read config file
     char character;
     char *data = NULL;
-    int dataP, dataMaxLength, lastTime;
+    int dataP, dataMaxLength, latestTravelTime;
     bool isNewTLine = true;
+    TLine *latestLineCreated = NULL;
     ProcessStage currentStage;
 
     while ((character = fgetc(configFile)) != EOF) {
@@ -40,19 +36,33 @@ bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArra
 
             // Process data ("string" between ';' and '\n')
             int id;
+            TStop *currentStop = NULL;
             switch (currentStage) {
                 case ProcessSign:
-                    TLinesArray_push(linesArray, data);
-                    lastTime = -1;
+                    latestLineCreated = TLine_init(data);
+                    *lines_head = TLine_push(*lines_head, latestLineCreated);
+                    latestTravelTime = -1;
                     currentStage = ProcessStop;
                     break;
                 case ProcessStop:
-                    id = TStopsArray_push(stopsArray, data, linesArray->count - 1);
-                    TLine_AddStop(linesArray->items[linesArray->count - 1], id, lastTime);
+                    // Create new or get existing stop by name
+                    currentStop = TStop_IsNameExists(*stops_head, data);
+                    if (currentStop == NULL) {
+                        currentStop = TStop_init(data);
+                        *stops_head = TStop_push(*stops_head, currentStop);
+                    } else
+                        free(data); // The stop is already existing. Free up the unused text
+
+                    // Add the latest line to the stop's transfers
+                    TStop_addTransfer(currentStop, latestLineCreated);
+
+                    // Add the stop to the line
+                    TLine_addStop(latestLineCreated, currentStop, latestTravelTime);
+
                     currentStage = ProcessTime;
                     break;
                 case ProcessTime:
-                    lastTime = atoi(data);
+                    latestTravelTime = atoi(data);
                     free(data);
                     currentStage = ProcessStop;
                     break;

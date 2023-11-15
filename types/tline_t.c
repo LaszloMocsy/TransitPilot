@@ -1,52 +1,84 @@
 #include "tline_t.h"
 
-/// Dynamically allocated `TLine`. <b style="color: red">Free it after use with <c>TransitLine_free()</c> method!</b>
-/// \param sign Sign of the <c>TLine</c>
-/// \return The pointer for the newly created, empty <c>TLine</c>
+/* Primary funtions */
+
 TLine *TLine_init(char *sign) {
-    TLine *new = (TLine *) malloc(sizeof(TLine));
-    new->sign = sign;
-    new->stops = NULL;
-    new->stopsCount = 0;
-    new->timeCount = 0;
-    new->times = NULL;
-    return new;
+    TLine *newLine = (TLine *) malloc(sizeof(TLine));
+    newLine->sign = sign;
+    newLine->stops = (TStop **) malloc(sizeof(TStop *));
+    newLine->stops[0] = NULL;
+    newLine->times = (int *) malloc(sizeof(int));
+    newLine->times[0] = -1;
+    newLine->next = NULL;
+    return newLine;
 }
 
-/// Add a stop's id to an existing <c>TLine</c>
-/// \param line The <c>TLine</c> that has the stop
-/// \param stopId The id of the <c>TStop</c>
-/// \param time The travelling time to the stop on the line
-void TLine_AddStop(TLine *line, int stopId, int time) {
-    line->stops = (int *) realloc(line->stops, sizeof(int) * ++line->stopsCount);
-    line->stops[line->stopsCount - 1] = stopId;
-    if (line->stopsCount > 1) {
-        line->times = (int *) realloc(line->times, sizeof(int) * ++line->timeCount);
-        line->times[line->timeCount - 1] = time;
-    }
-}
-
-/// Push a new <c>TLine</c> to an existing <c>TLinesArray</c>
-/// \param array The existing array
-/// \param sign The sign of the new <c>TLine</c>
-void TLinesArray_push(TLinesArray *array, char *sign) {
-    array->items = (TLine **) realloc(array->items, sizeof(TLine *) * (++array->count));
-    array->items[array->count - 1] = TLine_init(sign);
-}
-
-/// Free up dynamically allocated <c>TLine</c>
-/// \param line The pointer of the <c>TLine</c> that needs to be freed up
 void TLine_free(TLine *line) {
+    if (line == NULL) return;
     free(line->sign);
     free(line->stops);
     free(line->times);
     free(line);
 }
 
-/// Free up <c>TLinesArray</c>'s dynamically allocated data
-/// \param array The pointer of the <c>TLinesArray</c> that needs to be freed up
-void TLinesArray_free(TLinesArray *array) {
-    for (int i = 0; i < array->count; ++i)
-        TLine_free(array->items[i]);
-    free(array->items);
+void TLine_freeArray(TLine *head) {
+    if (head == NULL) return;
+    for (TLine *current = head, *next = current->next;
+         current != NULL; current = next, next = current == NULL ? NULL : current->next)
+        TLine_free(current);
+}
+
+TLine *TLine_push(TLine *head, TLine *line) {
+    if (line == NULL) return head;
+    else if (head == NULL) return line;
+
+    TLine *last = head;
+    while (last->next != NULL)
+        last = last->next;
+    last->next = line;
+    return head;
+}
+
+void TLine_addStop(TLine *line, TStop *stop, int time) {
+    int newStopsSize = TLine_GetNumberOfStops(line) + 2;
+    line->stops = (TStop **) realloc(line->stops, sizeof(TStop) * newStopsSize);
+    line->stops[newStopsSize - 2] = stop;
+    line->stops[newStopsSize - 1] = NULL;
+
+    if (time > -1) {
+        int newTimesSize = TLine_GetNumberOfTimes(line) + 2;
+        line->times = (int *) realloc(line->times, sizeof(int) * newTimesSize);
+        line->times[newTimesSize - 2] = time;
+        line->times[newTimesSize - 1] = -1;
+    }
+}
+
+/* Secondary functions */
+
+TLine *TLine_IsSignExists(TLine *head, char *sign) {
+    for (TLine *current = head; current != NULL; current = current->next)
+        if (strcmp(current->sign, sign) == 0)
+            return current;
+    return NULL;
+}
+
+int TLine_GetNumberOfStops(TLine *line) {
+    int count = 0;
+    for (TStop *stop = line->stops[0]; stop != NULL; stop = line->stops[count])
+        ++count;
+    return count;
+}
+
+int TLine_GetNumberOfTimes(TLine *line) {
+    int count = 0;
+    for (int time = line->times[0]; time != -1; time = line->times[count])
+        ++count;
+    return count;
+}
+
+int TLine_GetCount(TLine *head) {
+    int count = 0;
+    for (TLine *line = head; line != NULL; line = line->next)
+        ++count;
+    return count;
 }

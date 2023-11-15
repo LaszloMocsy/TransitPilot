@@ -14,6 +14,6 @@ add_executable(TransitPilot
         types/tline_t.h
         pathfinder.c
         pathfinder.h
-        types/route_t.c
-        types/route_t.h
+        types/troute_t.c
+        types/troute_t.h
 )

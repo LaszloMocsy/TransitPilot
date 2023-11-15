@@ -75,3 +75,10 @@ int TLine_GetNumberOfTimes(TLine *line) {
         ++count;
     return count;
 }
+
+int TLine_GetCount(TLine *head) {
+    int count = 0;
+    for (TLine *line = head; line != NULL; line = line->next)
+        ++count;
+    return count;
+}

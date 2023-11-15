@@ -12,8 +12,6 @@ add_executable(TransitPilot
         types/tstop_t.h
         types/tline_t.c
         types/tline_t.h
-        menu.c
-        menu.h
         pathfinder.c
         pathfinder.h
         types/route_t.c

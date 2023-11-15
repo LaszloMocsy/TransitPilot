@@ -57,4 +57,14 @@ TStop *TStop_IsNameExists(TStop *head, char *name);
 /// \return The number of transfers
 int TStop_GetNumberOfTransfers(TStop *stop);
 
+/// Count all the stops in the array
+/// \param head The head of the array
+/// \return The number of stops in the array
+int TStop_GetCount(TStop *head);
+
+/// Get TStop by id from an array
+/// \param id The id of the requested TStop
+/// \return NULL if the id is invalid, otherwise the memory address of the TStop
+TStop *TStop_GetStopById(TStop *head, int id);
+
 #endif //TRANSITPILOT_TSTOP_T_H

@@ -58,3 +58,18 @@ int TStop_GetNumberOfTransfers(TStop *stop) {
         ++count;
     return count;
 }
+
+int TStop_GetCount(TStop *head) {
+    int count = 0;
+    for (TStop *stop = head; stop != NULL; stop = stop->next)
+        ++count;
+    return count;
+}
+
+TStop *TStop_GetStopById(TStop *head, int id) {
+    int i = 0;
+    for (TStop *current = head; current != NULL; current = current->next, ++i)
+        if (i == id)
+            return current;
+    return NULL;
+}

@@ -63,4 +63,9 @@ int TLine_GetNumberOfStops(TLine *line);
 /// \return The number of travelling times
 int TLine_GetNumberOfTimes(TLine *line);
 
+/// Count all the lines in the array
+/// \param head The head of the array
+/// \return The number of lines in the array
+int TLine_GetCount(TLine *head);
+
 #endif //TRANSITPILOT_TLINE_T_H

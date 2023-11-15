@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    bool _loop = LoadConfiguration(argv[1], stops_head, lines_head);
+    bool _loop = LoadConfiguration(argv[1], &stops_head, &lines_head);
     if (!_loop) return 2;
 
     while (_loop) {

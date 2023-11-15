@@ -81,6 +81,16 @@ void Route_addData(Route *pRoute, int stop_id, int line_id) {
     }
 }
 
+/// Get the number of routes in a <c>Route</c> chained array
+/// \param array_head The head of the chained array
+/// \return The number of how many <c>Route</c>s are in the array
+int Route_GetCount(Route *array_head) {
+    int count = 0;
+    for (Route *pRoute = array_head; pRoute != NULL; pRoute = pRoute->next)
+        ++count;
+    return count;
+}
+
 /// Check whether the given <c>Route</c> is done (closed/finished)
 /// \param pRoute The <c>Route</c> that needs to be checked
 /// \return <c>true</c> if the <c>Route</c> is done (closed/finished), otherwise <c>false</c>

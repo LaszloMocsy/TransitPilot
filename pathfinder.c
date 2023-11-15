@@ -37,6 +37,14 @@ void FindPath(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_id
     }
 
     //TODO: Create loop that finds the path
+    int startingCount = Route_GetCount(routes);
+    for (int i = 0; i < startingCount; ++i) {
+        /**
+         * TODO: Is current route's last line contains stop_B?
+         * -> True: Add stop as last stop to route [Route is finished]
+         * -> False: Copy the route at transferable option times (2 copy if there is 2 transferable lines)
+         */
+    }
 
     //DEBUG: Print out all routes
     for (Route *currentRoute = routes; currentRoute != NULL; currentRoute = currentRoute->next) {

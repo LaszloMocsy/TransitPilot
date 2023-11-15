@@ -20,6 +20,8 @@ Route *Route_pop(Route *array_head, Route *pRoute);
 
 void Route_addData(Route *pRoute, int stop_id, int line_id);
 
+int Route_GetCount(Route *array_head);
+
 bool Route_IsDone(Route *pRoute);
 
 void Route_PrintOut(Route *pRoute, TStopsArray *stops, TLinesArray *lines);

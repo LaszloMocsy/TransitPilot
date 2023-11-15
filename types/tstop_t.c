@@ -1,64 +1,60 @@
 #include "tstop_t.h"
 
-/// Dynamically allocated `TStop`. <b style="color: red">Free it after use with <c>TransitStop_free()</c> method!</b>
-/// \param name Name of the <c>TStop</c>
-/// \return The pointer for the newly created, empty <c>TStop</c>
+/* Primary functions */
+
 TStop *TStop_init(char *name) {
-    TStop *new = (TStop *) malloc(sizeof(TStop));
-    new->name = name;
-    new->transferCount = 0;
-    new->transfers = NULL;
-    return new;
+    TStop *newStop = (TStop *) malloc(sizeof(TStop));
+    newStop->name = name;
+    newStop->transfers = (TLine **) malloc(sizeof(TLine *));
+    newStop->transfers[0] = NULL;
+    newStop->next = NULL;
+    return newStop;
 }
 
-/// Push a new <c>TStop</c> to an existing <c>TStopsArray</c>
-/// \param array The existing array
-/// \param name The name of the new <c>TStop</c>
-/// \param transfer The id of the transfer
-/// \return The stop's id in the array
-int TStopsArray_push(TStopsArray *array, char *name, int transfer) {
-    TStop *stop = NULL;
-    bool isStopExists = false;
-    bool isTransferExists = false;
-    int id = array->count;
-
-    for (int i = 0; !isStopExists && i < array->count; ++i)
-        if (strcmp(array->items[i]->name, name) == 0) {
-            free(name);
-            isStopExists = true;
-            stop = array->items[i];
-            id = i;
-            for (int j = 0; !isTransferExists && j < stop->transferCount; ++j)
-                if (stop->transfers[j] == transfer)
-                    isTransferExists = true;
-        }
-
-    if (stop == NULL)
-        stop = TStop_init(name);
-    if (!isTransferExists) {
-        stop->transfers = (int *) realloc(stop->transfers, sizeof(int) * ++stop->transferCount);
-        stop->transfers[stop->transferCount - 1] = transfer;
-    }
-    if (!isStopExists) {
-        array->items = (TStop **) realloc(array->items, sizeof(TStop *) * (++array->count));
-        array->items[array->count - 1] = stop;
-    }
-
-    return id;
-}
-
-/// Free up dynamically allocated <c>TStop</c>
-/// \param stop The pointer of the <c>TStop</c> that needs to be freed up
 void TStop_free(TStop *stop) {
+    if (stop == NULL) return;
     free(stop->name);
     free(stop->transfers);
     free(stop);
 }
 
-/// Free up <c>TStopsArray</c>'s dynamically allocated data
-/// \param array The pointer of the <c>TStopsArray</c> that needs to be freed up
-void TStopsArray_free(TStopsArray *array) {
-    for (int i = 0; i < array->count; ++i)
-        TStop_free(array->items[i]);
-    free(array->items);
+void TStop_freeArray(TStop *head) {
+    if (head == NULL) return;
+    for (TStop *current = head, *next = current->next;
+         current != NULL; current = next, next = current == NULL ? NULL : current->next)
+        TStop_free(current);
+}
+
+TStop *TStop_push(TStop *head, TStop *stop) {
+    if (stop == NULL) return head;
+    else if (head == NULL) return stop;
+
+    TStop *last = head;
+    while (last->next != NULL)
+        last = last->next;
+    last->next = stop;
+    return head;
+}
+
+void TStop_addTransfer(TStop *stop, TLine *line) {
+    int newSize = TStop_GetNumberOfTransfers(stop) + 2;
+    stop->transfers = (TLine **) realloc(stop->transfers, sizeof(TLine *) * newSize);
+    stop->transfers[newSize - 2] = line;
+    stop->transfers[newSize - 1] = NULL;
+}
+
+/* Secondary functions */
+
+TStop *TStop_IsNameExists(TStop *head, char *name) {
+    for (TStop *current = head; current != NULL; current = current->next)
+        if (strcmp(current->name, name) == 0)
+            return current;
+    return NULL;
+}
+
+int TStop_GetNumberOfTransfers(TStop *stop) {
+    int count = 0;
+    for (TLine *line = stop->transfers[0]; line != NULL; line = stop->transfers[count])
+        ++count;
+    return count;
 }

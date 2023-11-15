@@ -1,7 +1,7 @@
 #ifndef TRANSITPILOT_ROUTE_T_H
 #define TRANSITPILOT_ROUTE_T_H
 
-#include "debugmalloc.h"
+#include "../debugmalloc.h"
 #include "tstop_t.h"
 #include "tline_t.h"
 

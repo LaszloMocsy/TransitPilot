@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "debugmalloc.h"
-#include "tstop_t.h"
-#include "tline_t.h"
+#include "types/tstop_t.h"
+#include "types/tline_t.h"
 
 typedef enum ProcessStage {
     ProcessSign,

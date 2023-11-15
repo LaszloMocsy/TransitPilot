@@ -1,6 +1,6 @@
 #include "load.h"
-#include "tstop_t.h"
-#include "tline_t.h"
+#include "types/tstop_t.h"
+#include "types/tline_t.h"
 #include "menu.h"
 #include "pathfinder.h"
 

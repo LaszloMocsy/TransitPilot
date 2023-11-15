@@ -1,9 +1,9 @@
 #ifndef TRANSITPILOT_PATHFINDER_H
 #define TRANSITPILOT_PATHFINDER_H
 
-#include "tstop_t.h"
-#include "tline_t.h"
-#include "route_t.h"
+#include "types/tstop_t.h"
+#include "types/tline_t.h"
+#include "types/route_t.h"
 
 bool IsStopsOnSameLine(TStop stopA, TStop stopB);
 

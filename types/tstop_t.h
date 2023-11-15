@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include <string.h>
-#include "debugmalloc.h"
+#include "../debugmalloc.h"
 
 /// A transit stop, that have a name and an array of transferable lines
 typedef struct {

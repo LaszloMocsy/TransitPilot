@@ -8,14 +8,14 @@ add_executable(TransitPilot
         debugmalloc.h
         load.c
         load.h
-        tstop_t.c
-        tstop_t.h
-        tline_t.c
-        tline_t.h
+        types/tstop_t.c
+        types/tstop_t.h
+        types/tline_t.c
+        types/tline_t.h
         menu.c
         menu.h
         pathfinder.c
         pathfinder.h
-        route_t.c
-        route_t.h
+        types/route_t.c
+        types/route_t.h
 )

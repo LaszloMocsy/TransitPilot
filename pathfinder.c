@@ -1,60 +1,37 @@
 #include "pathfinder.h"
 
-/// Check if the two given stops are on tha same line
-/// \param stopA TStop from all the stops
-/// \param stopB Second TStop from all the stops
-/// \return true, if the two stops are on the same line, otherwise false
-bool IsStopsOnSameLine(TStop stopA, TStop stopB) {
-    for (int i = 0; i < stopA.transferCount; ++i) {
-        for (int j = 0; j < stopB.transferCount; ++j) {
-            if (stopA.transfers[i] == stopB.transfers[j])
-                return true;
-        }
-    }
-    return false;
-}
-
-/// Plans a rout from stop A to B and returns the route's specs
-/// \param stops The array that contains all TStops
-/// \param lines The array that contains all TLines
-/// \param stopA_id The id of stop A
-/// \param stopB_id The id of stop B
-void FindPath(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_id) {
-    if (stopA_id == -1 || stopB_id == -1) {
+void FindPath(TStop *stopA, TStop *stopB) {
+    if (stopA == NULL || stopB == NULL) {
         printf("Stop A and B cannot be empty!\n\n");
         return;
-    } else if (stopA_id == stopB_id) {
+    } else if (strcmp(stopA->name, stopB->name) == 0) {
         printf("Stop A and B cannot be the same!\n\n");
         return;
     }
 
-    Route *routes = NULL;
+    TRoute *routes_head = NULL;
 
     // Generate the starting point(s)
-    for (int i = 0; i < stops->items[stopA_id]->transferCount; ++i) {
-        Route *newRoute = Route_init(stopA_id, stops->items[stopA_id]->transfers[i]);
-        routes = Route_push(routes, newRoute);
+    int stopA_transferCount = TStop_GetNumberOfTransfers(stopA);
+    for (int i = 0; i < stopA_transferCount; ++i) {
+        TRoute *newRoute = TRoute_init(stopA, stopA->transfers[i]);
+        routes_head = TRoute_push(routes_head, newRoute);
     }
 
     //TODO: Create loop that finds the path
-    int startingCount = Route_GetCount(routes);
+    int startingCount = TRoute_GetCount(routes_head);
     for (int i = 0; i < startingCount; ++i) {
         /**
          * TODO: Is current route's last line contains stop_B?
-         * -> True: Add stop as last stop to route [Route is finished]
+         * -> True: Add stop as last stop to route [TRoute is finished]
          * -> False: Copy the route at transferable option times (2 copy if there is 2 transferable lines)
          */
     }
 
-    //DEBUG: Print out all routes
-    for (Route *currentRoute = routes; currentRoute != NULL; currentRoute = currentRoute->next) {
-        Route_PrintOut(currentRoute, stops, lines);
-        printf("\n");
-    }
-    printf("\n");
+    // Print out all routes_head
+    for (TRoute *current = routes_head; current != NULL; current = current->next)
+        TRoute_PrintOut(current);
 
-    // Free all routes!
-    for (Route *current = routes, *next = current->next;
-         current != NULL; current = next, next = current == NULL ? NULL : current->next)
-        Route_free(current);
+    // Free all routes_head!
+    TRoute_freeArray(routes_head);
 }

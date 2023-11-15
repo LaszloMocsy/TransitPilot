@@ -1,9 +1,9 @@
 #include "route_t.h"
 
-/// Initialize a new <c>Route</c> struct. <b style="color:red;">The caller needs to free the <c>Route</c> after use!</b>
-/// \param firstStop Populate the new <c>Route</c> with this stop
-/// \param firstLine Populate the new <c>Route</c> with this line
-/// \return The newly created <c>Route</c>'s memory address
+/// Initialize a new Route struct. <b style="color:red;">The caller needs to free the Route after use!</b>
+/// \param firstStop Populate the new Route with this stop
+/// \param firstLine Populate the new Route with this line
+/// \return The newly created Route's memory address
 Route *Route_init(int firstStop, int firstLine) {
     Route *newRoute = (Route *) malloc(sizeof(Route));
     newRoute->next = NULL;
@@ -16,8 +16,8 @@ Route *Route_init(int firstStop, int firstLine) {
     return newRoute;
 }
 
-/// Free up the given <c>Route</c>
-/// \param pRoute The <c>Route</c> that needs to be freed up
+/// Free up the given Route
+/// \param pRoute The Route that needs to be freed up
 void Route_free(Route *pRoute) {
     if (pRoute != NULL) {
         free(pRoute->stops);
@@ -26,7 +26,7 @@ void Route_free(Route *pRoute) {
     }
 }
 
-/// Add a new <c>Route</c> to the end of the chained array
+/// Add a new Route to the end of the chained array
 /// \param array_head The head of the chained array
 /// \param pRoute The new item that needs to be added
 /// \return The memory address of the head of the chained array
@@ -38,7 +38,7 @@ Route *Route_push(Route *array_head, Route *pRoute) {
     return array_head;
 }
 
-/// Remove the specified <c>Route</c> from the chained array
+/// Remove the specified Route from the chained array
 /// \param array_head The head of the chained array
 /// \param pRoute The item that needs to be removed
 /// \return The memory address of the head of the chained array
@@ -60,8 +60,8 @@ Route *Route_pop(Route *array_head, Route *pRoute) {
     return array_head;
 }
 
-/// Add new stop and line to existing <c>Route</c>
-/// \param pRoute The <c>Route</c> that will contain the new data
+/// Add new stop and line to existing Route
+/// \param pRoute The Route that will contain the new data
 /// \param stop_id The stop's id
 /// \param line_id The line's id
 void Route_addData(Route *pRoute, int stop_id, int line_id) {
@@ -81,9 +81,9 @@ void Route_addData(Route *pRoute, int stop_id, int line_id) {
     }
 }
 
-/// Get the number of routes in a <c>Route</c> chained array
+/// Get the number of routes in a Route chained array
 /// \param array_head The head of the chained array
-/// \return The number of how many <c>Route</c>s are in the array
+/// \return The number of how many Routes are in the array
 int Route_GetCount(Route *array_head) {
     int count = 0;
     for (Route *pRoute = array_head; pRoute != NULL; pRoute = pRoute->next)
@@ -91,9 +91,9 @@ int Route_GetCount(Route *array_head) {
     return count;
 }
 
-/// Check whether the given <c>Route</c> is done (closed/finished)
-/// \param pRoute The <c>Route</c> that needs to be checked
-/// \return <c>true</c> if the <c>Route</c> is done (closed/finished), otherwise <c>false</c>
+/// Check whether the given Route is done (closed/finished)
+/// \param pRoute The Route that needs to be checked
+/// \return true if the Route is done (closed/finished), otherwise false
 bool Route_IsDone(Route *pRoute) {
     int stops_count = 1; // (-1)
     for (int i = 0; pRoute->stops[i] != -1; ++i) ++stops_count;
@@ -102,8 +102,8 @@ bool Route_IsDone(Route *pRoute) {
     return stops_count == lines_count + 1;
 }
 
-/// Print out to the <c>stdout</c> the given <c>Route</c>
-/// \param pRoute The <c>Route</c> that will be printed out
+/// Print out to the stdout the given Route
+/// \param pRoute The Route that will be printed out
 /// \param stops The array of stops
 /// \param lines The array of lines
 void Route_PrintOut(Route *pRoute, TStopsArray *stops, TLinesArray *lines) {

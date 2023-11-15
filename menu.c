@@ -1,6 +1,6 @@
 #include "menu.h"
 
-/// Lists all <c>TStop</c>s from an array
+/// Lists all TStops from an array
 /// \param stops The array that needs to be printed out
 /// \param lines Required for the lines' sign
 void ListAllStops(TStopsArray stops, TLinesArray lines) {
@@ -19,7 +19,7 @@ void ListAllStops(TStopsArray stops, TLinesArray lines) {
     printf("\n");
 }
 
-/// Lists all <c>TLine</c>s from an array
+/// Lists all TLines from an array
 /// \param lines The array that needs to be printed out
 /// \param stops Required for the stops' name
 void ListAllLines(TLinesArray lines, TStopsArray stops) {
@@ -35,8 +35,8 @@ void ListAllLines(TLinesArray lines, TStopsArray stops) {
     printf("\n");
 }
 
-/// Gets the id of the <c>TStop</c> from the user
-/// \param output The id of the valid <c>TStop</c>
+/// Gets the id of the TStop from the user
+/// \param output The id of the valid TStop
 /// \param max The last id that is valid
 void ReadStopId(int *output, int max) {
     int input;

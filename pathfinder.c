@@ -1,9 +1,9 @@
 #include "pathfinder.h"
 
 /// Check if the two given stops are on tha same line
-/// \param stopA <c>TStop</c> from all the stops
-/// \param stopB Second <c>TStop</c> from all the stops
-/// \return <c>true</c>, if the two stops are on the same line, otherwise <c>false</c>
+/// \param stopA TStop from all the stops
+/// \param stopB Second TStop from all the stops
+/// \return true, if the two stops are on the same line, otherwise false
 bool IsStopsOnSameLine(TStop stopA, TStop stopB) {
     for (int i = 0; i < stopA.transferCount; ++i) {
         for (int j = 0; j < stopB.transferCount; ++j) {
@@ -15,8 +15,8 @@ bool IsStopsOnSameLine(TStop stopA, TStop stopB) {
 }
 
 /// Plans a rout from stop A to B and returns the route's specs
-/// \param stops The array that contains all <c>TStop</c>s
-/// \param lines The array that contains all <c>TLine</c>s
+/// \param stops The array that contains all TStops
+/// \param lines The array that contains all TLines
 /// \param stopA_id The id of stop A
 /// \param stopB_id The id of stop B
 void FindPath(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_id) {

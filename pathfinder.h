@@ -3,6 +3,7 @@
 
 #include "tstop_t.h"
 #include "tline_t.h"
+#include "route_t.h"
 
 bool IsStopsOnSameLine(TStop stopA, TStop stopB);
 

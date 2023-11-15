@@ -28,46 +28,25 @@ void FindPath(TStopsArray *stops, TLinesArray *lines, int stopA_id, int stopB_id
         return;
     }
 
-    int routes_count = 0;
     Route *routes = NULL;
 
     // Generate the starting point(s)
     for (int i = 0; i < stops->items[stopA_id]->transferCount; ++i) {
-        routes = (Route *) realloc(routes, sizeof(Route) * ++routes_count);
-        int *spStops = malloc(sizeof(int));
-        int *spLines = malloc(sizeof(int));
-
-        spStops[0] = stopA_id;
-        spLines[0] = stops->items[stopA_id]->transfers[i];
-
-        Route newStartingPoint = {spStops, spLines, 1, 1};
-        routes[i] = newStartingPoint;
+        Route *newRoute = Route_init(stopA_id, stops->items[stopA_id]->transfers[i]);
+        routes = Route_push(routes, newRoute);
     }
 
-    // Extend each routes' end
-    for (int i = 0, iMax = routes_count; i < iMax; ++i) {
-        Route *currentRoute = &routes[i];
-        if (currentRoute->stops_count == currentRoute->lines_count) {
-            int lastStop_id = currentRoute->stops[currentRoute->stops_count - 1];
-            if (IsStopsOnSameLine(*stops->items[lastStop_id], *stops->items[stopB_id])) {
-                currentRoute->stops = (int *) realloc(currentRoute->stops, sizeof(int) * ++currentRoute->stops_count);
-                currentRoute->stops[currentRoute->stops_count - 1] = stopB_id;
-            }
-        } // else, the route has been found (do not touch the route)
-    }
+    //TODO: Create loop that finds the path
 
-    //DEBUG: Print out all the starting point (routes)
-    for (int i = 0; i < routes_count; ++i) {
-        printf("%d. ", i);
-        Route *currentRoute = &routes[i];
-        for (int j = 0; j < currentRoute->stops_count; ++j) {
-            printf(" %s", stops->items[currentRoute->stops[j]]->name);
-            if (j < currentRoute->lines_count)
-                printf(" --[%s]->", lines->items[currentRoute->lines[j]]->sign);
-        }
+    //DEBUG: Print out all routes
+    for (Route *currentRoute = routes; currentRoute != NULL; currentRoute = currentRoute->next) {
+        Route_PrintOut(currentRoute, stops, lines);
         printf("\n");
     }
     printf("\n");
 
-    //FIXME: Free all routes!
+    // Free all routes!
+    for (Route *current = routes, *next = current->next;
+         current != NULL; current = next, next = current == NULL ? NULL : current->next)
+        Route_free(current);
 }

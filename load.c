@@ -27,7 +27,6 @@ bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArra
             currentStage = ProcessSign;
 
         if (data == NULL) {
-            lastTime = -1;
             dataP = 0;
             dataMaxLength = BUFFER_SIZE;
             data = (char *) malloc(sizeof(char) * dataMaxLength);
@@ -44,6 +43,7 @@ bool LoadConfiguration(const char *fileName, TStopsArray *stopsArray, TLinesArra
             switch (currentStage) {
                 case ProcessSign:
                     TLinesArray_push(linesArray, data);
+                    lastTime = -1;
                     currentStage = ProcessStop;
                     break;
                 case ProcessStop:

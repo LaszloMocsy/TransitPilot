@@ -2,8 +2,8 @@
 #define TRANSITPILOT_MENU_H
 
 #include <stdio.h>
-#include "tstop.h"
-#include "tline.h"
+#include "tstop_t.h"
+#include "tline_t.h"
 
 void ListAllStops(TStopsArray stops, TLinesArray lines);
 

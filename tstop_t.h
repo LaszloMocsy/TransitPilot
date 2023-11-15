@@ -1,5 +1,5 @@
-#ifndef TRANSITPILOT_TSTOP_H
-#define TRANSITPILOT_TSTOP_H
+#ifndef TRANSITPILOT_TSTOP_T_H
+#define TRANSITPILOT_TSTOP_T_H
 
 #include <stdbool.h>
 #include <string.h>
@@ -26,4 +26,4 @@ void TStop_free(TStop *stop);
 
 void TStopsArray_free(TStopsArray *array);
 
-#endif //TRANSITPILOT_TSTOP_H
+#endif //TRANSITPILOT_TSTOP_T_H

@@ -1,7 +1,8 @@
 #include "load.h"
-#include "tstop.h"
-#include "tline.h"
+#include "tstop_t.h"
+#include "tline_t.h"
 #include "menu.h"
+#include "pathfinder.h"
 
 int main(int argc, char *argv[]) {
     TStopsArray stopsArray = {0, NULL};
@@ -40,15 +41,16 @@ int main(int argc, char *argv[]) {
                     ListAllLines(linesArray, stopsArray);
                     break;
                 case 3:
-                    printf("\n--> Modify starting stop\n\n");
+                    printf("\n=== Modify starting stop ===\n\n");
                     ReadStopId(&stopA, stopsArray.count - 1);
                     break;
                 case 4:
-                    printf("\n--> Modify ending stop\n\n");
+                    printf("\n=== Modify ending stop ===\n\n");
                     ReadStopId(&stopB, stopsArray.count - 1);
                     break;
                 case 5:
-                    printf("\n--> Plan a route\n\n");
+                    printf("\n=== Plan a route ===\n\n");
+                    FindPath(&stopsArray, &linesArray, stopA, stopB);
                     break;
                 case 0:
                     _loop = false;
@@ -57,7 +59,7 @@ int main(int argc, char *argv[]) {
                     // Invalid action was submitted, it will ask again for an action
                     break;
             }
-        } while (action != 0 && !(action >= 1 && action <= 4));
+        } while (action != 0 && !(action >= 1 && action <= 5));
     }
 
     TStopsArray_free(&stopsArray);

@@ -1,0 +1,6 @@
+1001;Prince Lane;2;Circus Avenue;2;Marble Lane;3;Juniper Route;2;Starfall Way;3;Wright Way;4;Walnut Route;6;Haven Row
+80;Juniper Route;2;Bright Row;1;Law Passage;3;Main Street;2;Star Way;2;Vermilion Lane;3;Jade Lane;1;Vista Route;3;Juniper Route
+3A;Starfall Boulevard;2;Plaza Street;1;Jade Lane;2;Hind Lane;1;Seacoast Passage;1;Bury Street
+Z7;Highland Road;2;Gem Route;1;Redwood Lane;1;Fountain Street;1;Walnut Passage;2;Sycamore Route
+75;Bath Route;1;Elm Avenue;3;Vermilion Lane;5;Paradise Lane;7;Law Passage;2;Flax Route
+102;Bath Route;2;Little Lane;2;Elmwood Street;4;Java Street;2;Aurora Avenue;2;Redwood Lane;1;Haven Row

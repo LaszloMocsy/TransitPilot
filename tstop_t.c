@@ -1,4 +1,4 @@
-#include "tstop.h"
+#include "tstop_t.h"
 
 /// Dynamically allocated `TStop`. <b style="color: red">Free it after use with <c>TransitStop_free()</c> method!</b>
 /// \param name Name of the <c>TStop</c>
@@ -40,7 +40,7 @@ int TStopsArray_push(TStopsArray *array, char *name, int transfer) {
         stop->transfers[stop->transferCount - 1] = transfer;
     }
     if (!isStopExists) {
-        array->items = (TStop **) realloc(array->items, sizeof(TStop * ) * (++array->count));
+        array->items = (TStop **) realloc(array->items, sizeof(TStop *) * (++array->count));
         array->items[array->count - 1] = stop;
     }
 

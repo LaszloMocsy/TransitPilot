@@ -56,3 +56,6 @@ cmake-build-debug/
 
 # CLion IDE folder
 .idea/**/workspace.xml
+
+# Build forlder
+build/

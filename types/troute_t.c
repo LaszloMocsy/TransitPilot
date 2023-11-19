@@ -73,6 +73,18 @@ void TRoute_addData(TRoute *route, TStop *stop, TLine *line) {
     }
 }
 
+TRoute *TRoute_copy(TRoute *route) {
+    int numOfStops = TRoute_GetNumberOfStops(route), numOfLines = TRoute_GetNumberOfLines(route);
+    if (numOfStops < 2 || numOfLines < 2) return NULL;
+
+    TRoute *newRoute = TRoute_init(route->stops[0], route->lines[0]);
+    for (int i = 1; i < numOfStops - 1; ++i)
+        TRoute_addData(newRoute, route->stops[i], NULL);
+    for (int i = 1; i < numOfLines - 1; ++i)
+        TRoute_addData(newRoute, NULL, route->lines[i]);
+    return newRoute;
+}
+
 /* Secondary functions */
 
 int TRoute_GetCount(TRoute *head) {
@@ -104,6 +116,66 @@ void TRoute_PrintOut(TRoute *route) {
         printf("%s --[%s]->", route->stops[i]->name, route->lines[i]->sign);
     }
     if (TRoute_IsDone(route))
-        printf("%s", route->stops[lines_count]->name);
+        printf(" %s", route->stops[lines_count]->name);
     printf("\n");
+}
+
+bool TRoute_IsStopOnRoute(TRoute *route, TStop *stop) {
+    TLine *lastLine = route->lines[TRoute_GetNumberOfLines(route) - 1];
+    for (int i = 0; lastLine->stops[i] != NULL; ++i) {
+        if (lastLine->stops[i] == stop)
+            return true;
+    }
+    return false;
+}
+
+int TRoute_GetTransfers(TRoute *route, TStop ***stops, TLine ***lines) {
+    int numOfTransfers = 0;
+    TStop *lastStop = route->stops[TRoute_GetNumberOfStops(route) - 1];
+    TLine *lastLine = route->lines[TRoute_GetNumberOfLines(route) - 1];
+
+    TStop **transferStops = NULL;
+    TLine **transferLines = NULL;
+
+    // Search for stops that have minimum of two transfers
+    int lineStops_count = TLine_GetNumberOfStops(lastLine);
+    for (int i = 0; i < lineStops_count; ++i) {
+        TStop *currentStop = lastLine->stops[i];
+        if (currentStop == lastStop || TStop_GetNumberOfTransfers(currentStop) < 2)
+            continue;
+
+        // Loop through stop's all lines
+        int stopTransfers_count = TStop_GetNumberOfTransfers(currentStop);
+        for (int j = 0; j < stopTransfers_count; ++j) {
+            TLine *currentLine = currentStop->transfers[j];
+
+            // Search for unvisited lines
+            bool wasVisited = false;
+            int routeLines_count = TRoute_GetNumberOfLines(route);
+            for (int k = 0; !wasVisited && k < routeLines_count; ++k) {
+                if (currentLine == route->lines[k])
+                    wasVisited = true;
+            }
+            if (wasVisited) continue;
+
+            // If already added, just continue
+            bool wasAlreadyAdded = false;
+            for (int k = 0; k < numOfTransfers; ++k) {
+                if (transferStops[k] == currentStop && transferLines[k] == currentLine)
+                    wasAlreadyAdded = true;
+            }
+            if (wasAlreadyAdded) continue;
+
+            // Add to possible transfers if was not visited before
+            ++numOfTransfers;
+            transferStops = (TStop **) realloc(transferStops, sizeof(TStop *) * numOfTransfers);
+            transferStops[numOfTransfers - 1] = currentStop;
+            transferLines = (TLine **) realloc(transferLines, sizeof(TLine *) * numOfTransfers);
+            transferLines[numOfTransfers - 1] = currentLine;
+        }
+    }
+
+    *stops = transferStops;
+    *lines = transferLines;
+    return numOfTransfers;
 }

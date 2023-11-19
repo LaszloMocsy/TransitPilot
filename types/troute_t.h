@@ -48,6 +48,12 @@ TRoute *TRoute_pop(TRoute *head, TRoute *route);
 /// \param line The TLine that needs to be added
 void TRoute_addData(TRoute *route, TStop *stop, TLine *line);
 
+/// Create a new route with the same data as the given route, but without the last added stop and line.<br/>
+/// <b style="color:red;">This function allocates memory dynamically. After use, free it up!</b>
+/// \param route The route that needs to be copied
+/// \return A newly allocated TRoute's memory address
+TRoute *TRoute_copy(TRoute *route);
+
 /* Secondary function */
 
 /// Get the number of routes in a TRoute chained array
@@ -73,5 +79,18 @@ bool TRoute_IsDone(TRoute *route);
 /// Print out the TRoute
 /// \param route The TRoute that will be printed out
 void TRoute_PrintOut(TRoute *route);
+
+/// Check if the stop is on the route
+/// \param route The route that needs to contain th stop
+/// \param stop The stop that needs to be contained
+/// \return true if route contains the stop, otherwise false
+bool TRoute_IsStopOnRoute(TRoute *route, TStop *stop);
+
+/// Get all transfers for a route
+/// \param route The route that needs to continue
+/// \param lines Array of possible lines
+/// \param stops Array of possible stops
+/// \return Number of found possible transfers
+int TRoute_GetTransfers(TRoute *route, TStop ***stops, TLine ***lines);
 
 #endif //TRANSITPILOT_TROUTE_T_H

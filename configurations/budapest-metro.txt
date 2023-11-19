@@ -1,0 +1,4 @@
+M1;Vorosmarty ter;1;Deak Ferenc ter;1;Bajcsy-Zsilinszky ut;1;Opera;2;Oktogon;1;Vorosmarty utca;1;Kodaly korond;1;Bajza utca;1;Hosok tere;1;Szechenyi furdo;2;Mexikoi ut
+M2;Deli palyaudvar;2;Szell Kalman ter;1;Batthyany ter;2;Kossuth Lajos ter;2;Deak Ferenc ter;1;Astoria;2;Blaha Lujza ter;2;Keleti palyaudvar;2;Puskas Ferenc Stadion;2;Pillango utca;2;Ors vezer tere
+M3;Ujpest-kozpont;2;Ujpest-varoskapu;2;Gyongyosi utca;2;Forgach utca;1;Goncz Arpad varoskozpont;2;Dozsa Gyorgy ut;2;Lehel ter;1;Nyugati palyaudvar;2;Arany Ferenc ter;1;Ferenciek tere;1;Kalvin ter;2;Corvin-negyed;1;Semmelweis Klinikak;2;Nagyvarad ter;2;Nepliget;2;Ecseri ut;1;Pottyos utca;2;Hatar ut;2;Kobanya-Kispest
+M4;Keleti palyaudvar;1;II. Janos Pal papa ter;2;Rakoczi ter;1;Kalvin ter;2;Fovam ter;1;Szent Gellert ter - Muegyetem;2;Moricz Zsigmond korter;1;Ujbuda-kozpont;2;Bikas park;1;Kelenfold vasutallomas

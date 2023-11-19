@@ -55,13 +55,6 @@ void TLine_addStop(TLine *line, TStop *stop, int time) {
 
 /* Secondary functions */
 
-TLine *TLine_IsSignExists(TLine *head, char *sign) {
-    for (TLine *current = head; current != NULL; current = current->next)
-        if (strcmp(current->sign, sign) == 0)
-            return current;
-    return NULL;
-}
-
 int TLine_GetNumberOfStops(TLine *line) {
     int count = 0;
     for (TStop *stop = line->stops[0]; stop != NULL; stop = line->stops[count])

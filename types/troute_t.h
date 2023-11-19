@@ -56,11 +56,6 @@ TRoute *TRoute_copy(TRoute *route);
 
 /* Secondary function */
 
-/// Get the number of routes in a TRoute chained array
-/// \param head The head of the chained array
-/// \return The number of how many Routes are in the array
-int TRoute_GetCount(TRoute *head);
-
 /// Get the number of stops in a route
 /// \param route The TRoute that contains the stops
 /// \return The number of stops

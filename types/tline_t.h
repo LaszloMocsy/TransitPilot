@@ -47,12 +47,6 @@ void TLine_addStop(TLine *line, TStop *stop, int time);
 
 /* Secondary functions */
 
-/// Check if the given sign is already in the given chained array of TLines
-/// \param head The head of the TLine chained array
-/// \param sign The sign that needs to be checked
-/// \return NULL if the sign does not exist, otherwise the pointer of the TLine that has the same name
-TLine *TLine_IsSignExists(TLine *head, char *sign);
-
 /// Get the number of stops on a line
 /// \param line The TLine that has the stops
 /// \return The number of stops

@@ -87,12 +87,6 @@ TRoute *TRoute_copy(TRoute *route) {
 
 /* Secondary functions */
 
-int TRoute_GetCount(TRoute *head) {
-    int count = 0;
-    for (TRoute *route = head; route != NULL; route = route->next, ++count);
-    return count;
-}
-
 int TRoute_GetNumberOfStops(TRoute *route) {
     int count = 0;
     for (int i = 0; route->stops[i] != NULL; ++i, ++count);

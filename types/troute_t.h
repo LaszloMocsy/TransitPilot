@@ -48,6 +48,12 @@ TRoute *TRoute_pop(TRoute *head, TRoute *route);
 /// \param line The TLine that needs to be added
 void TRoute_addData(TRoute *route, TStop *stop, TLine *line);
 
+/// Create a new route with the same data as the given route, but without the last added stop and line.<br/>
+/// <b style="color:red;">This function allocates memory dynamically. After use, free it up!</b>
+/// \param route The route that needs to be copied
+/// \return A newly allocated TRoute's memory address
+TRoute *TRoute_copy(TRoute *route);
+
 /* Secondary function */
 
 /// Get the number of routes in a TRoute chained array

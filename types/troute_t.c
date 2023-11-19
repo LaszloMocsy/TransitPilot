@@ -73,6 +73,18 @@ void TRoute_addData(TRoute *route, TStop *stop, TLine *line) {
     }
 }
 
+TRoute *TRoute_copy(TRoute *route) {
+    int numOfStops = TRoute_GetNumberOfStops(route), numOfLines = TRoute_GetNumberOfLines(route);
+    if (numOfStops < 2 || numOfLines < 2) return NULL;
+
+    TRoute *newRoute = TRoute_init(route->stops[0], route->lines[0]);
+    for (int i = 1; i < numOfStops - 1; ++i)
+        TRoute_addData(newRoute, route->stops[i], NULL);
+    for (int i = 1; i < numOfLines - 1; ++i)
+        TRoute_addData(newRoute, NULL, route->lines[i]);
+    return newRoute;
+}
+
 /* Secondary functions */
 
 int TRoute_GetCount(TRoute *head) {

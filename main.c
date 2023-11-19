@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     TStop *stops_head = NULL, *stopA = NULL, *stopB = NULL;
     TLine *lines_head = NULL;
 
-    if (argc != 2) {
+    if (argc < 2) {
         perror("[E_0x1]: No configuration file was provided!");
         return 1;
     }
@@ -40,8 +40,7 @@ int main(int argc, char *argv[]) {
             scanf("%d", &action);
             switch (action) {
                 case 1:
-                    printf("\n=== Stops (%d) ===\n"
-                           "<id>. <stop name>  ->  <transferable lines' sign>\n\n", TStop_GetCount(stops_head));
+                    printf("\n=== Stops (%d) ===\n\n", TStop_GetCount(stops_head));
                     int i = 0;
                     for (TStop *current = stops_head; current != NULL; current = current->next) {
                         printf("%d. %s\n", i, current->name);
@@ -49,8 +48,7 @@ int main(int argc, char *argv[]) {
                     }
                     break;
                 case 2:
-                    printf("\n=== Lines (%d) ===\n"
-                           "<line's sign>  ->  <from> - <to>\n\n", TLine_GetCount(lines_head));
+                    printf("\n=== Lines (%d) ===\n\n", TLine_GetCount(lines_head));
                     for (TLine *current = lines_head; current != NULL; current = current->next) {
                         printf("%s :  %s -> %s\n", current->sign, current->stops[0]->name, "...");
                     }
@@ -62,7 +60,7 @@ int main(int argc, char *argv[]) {
                     stopB = GetStopFromInput("Modify ending stop", TStop_GetCount(stops_head) - 1, stops_head);
                     break;
                 case 5:
-                    printf("\n=== Plan a route ===\n\n");
+                    printf("\n=== Route planning ===\n\n");
                     FindPath(stopA, stopB);
                     break;
                 case 0:
@@ -88,5 +86,5 @@ TStop *GetStopFromInput(const char *title, int maxId, TStop *head) {
         printf("Enter a valid id [0-%d]: ", maxId);
         scanf("%d", &inputA);
     } while (inputA < 0 || inputA > maxId);
-    return TStop_GetStopById(head, inputA); //FIXME: Create this function
+    return TStop_GetStopById(head, inputA);
 }

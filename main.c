@@ -50,7 +50,8 @@ int main(int argc, char *argv[]) {
                 case 2:
                     printf("\n=== Lines (%d) ===\n\n", TLine_GetCount(lines_head));
                     for (TLine *current = lines_head; current != NULL; current = current->next) {
-                        printf("%s :  %s -> %s\n", current->sign, current->stops[0]->name, "...");
+                        printf("%s :  %s -> %s\n", current->sign, current->stops[0]->name,
+                               current->stops[TLine_GetNumberOfStops(current) - 1]->name);
                     }
                     break;
                 case 3:

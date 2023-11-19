@@ -74,4 +74,17 @@ bool TRoute_IsDone(TRoute *route);
 /// \param route The TRoute that will be printed out
 void TRoute_PrintOut(TRoute *route);
 
+/// Check if the stop is on the route
+/// \param route The route that needs to contain th stop
+/// \param stop The stop that needs to be contained
+/// \return true if route contains the stop, otherwise false
+bool TRoute_IsStopOnRoute(TRoute *route, TStop *stop);
+
+/// Get all transfers for a route
+/// \param route The route that needs to continue
+/// \param lines Array of possible lines
+/// \param stops Array of possible stops
+/// \return Number of found possible transfers
+int TRoute_GetTransfers(TRoute *route, TStop ***stops, TLine ***lines);
+
 #endif //TRANSITPILOT_TROUTE_T_H

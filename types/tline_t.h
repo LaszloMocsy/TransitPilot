@@ -62,4 +62,11 @@ int TLine_GetNumberOfTimes(TLine *line);
 /// \return The number of lines in the array
 int TLine_GetCount(TLine *head);
 
+/// Get the travelling time between the two stop on the line
+/// \param line The same line where the stops are on
+/// \param stopA The first stop
+/// \param stopB The second stop
+/// \return Travelling tim ein minutes. If one of the stops is not on the line -1
+int TLine_GetTravellingTime(TLine *line, TStop *stopA, TStop *stopB);
+
 #endif //TRANSITPILOT_TLINE_T_H

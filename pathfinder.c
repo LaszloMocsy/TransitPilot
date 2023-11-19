@@ -80,7 +80,8 @@ void FindPath(TStop *stopA, TStop *stopB) {
     printf("Between %s and %s, %d route has been found.\n", stopA->name, stopB->name, routes_count);
     int id = 1;
     for (TRoute *current = routes_head; current != NULL; current = current->next) {
-        printf("\n%d. route:\n", id);
+        printf("\n%d. route; Travelling time: %dm; Line change: %d\n", id, TRoute_GetTravellingTime(current),
+               TRoute_GetNumberOfLines(current) - 1);
         TRoute_PrintOut(current);
         ++id;
     }

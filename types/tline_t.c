@@ -75,3 +75,19 @@ int TLine_GetCount(TLine *head) {
         ++count;
     return count;
 }
+
+int TLine_GetTravellingTime(TLine *line, TStop *stopA, TStop *stopB) {
+    int travellingTime = 0;
+    char firstStop = '-';
+    for (int i = 0; firstStop != 'O' && i < TLine_GetNumberOfStops(line); ++i) {
+        TStop *currentStop = line->stops[i];
+        if (firstStop == '-') {
+            if (currentStop == stopA) firstStop = 'A';
+            else if (currentStop == stopB) firstStop = 'B';
+        } else {
+            travellingTime += line->times[i - 1];
+            if (currentStop == (firstStop == 'A' ? stopB : stopA)) firstStop = 'O';
+        }
+    }
+    return firstStop == 'O' ? travellingTime : -1;
+}

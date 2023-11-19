@@ -46,11 +46,11 @@ TRoute *TRoute_pop(TRoute *head, TRoute *route) {
         if (current == route) {
             if (previous == NULL) {
                 TRoute *temp = current->next;
-                free(current);
+                TRoute_free(current);
                 return temp;
             } else {
                 previous->next = current->next;
-                free(current);
+                TRoute_free(current);
                 return head;
             }
         }
@@ -172,4 +172,11 @@ int TRoute_GetTransfers(TRoute *route, TStop ***stops, TLine ***lines) {
     *stops = transferStops;
     *lines = transferLines;
     return numOfTransfers;
+}
+
+int TRoute_GetTravellingTime(TRoute *route) {
+    int travellingTime = 0;
+    for (int i = 0; i < TRoute_GetNumberOfLines(route); ++i)
+        travellingTime += TLine_GetTravellingTime(route->lines[i], route->stops[i], route->stops[i + 1]);
+    return travellingTime;
 }

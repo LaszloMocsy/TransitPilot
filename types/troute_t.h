@@ -88,4 +88,9 @@ bool TRoute_IsStopOnRoute(TRoute *route, TStop *stop);
 /// \return Number of found possible transfers
 int TRoute_GetTransfers(TRoute *route, TStop ***stops, TLine ***lines);
 
+/// Get the route's travelling time summary
+/// \param route The route that contains the data
+/// \return Travelling time in minutes
+int TRoute_GetTravellingTime(TRoute *route);
+
 #endif //TRANSITPILOT_TROUTE_T_H

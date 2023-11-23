@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include "debugmalloc.h"
+#include "lib/debugmalloc.h"
 #include "types/tstop_t.h"
 #include "types/tline_t.h"
 

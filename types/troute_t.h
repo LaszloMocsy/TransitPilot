@@ -1,7 +1,7 @@
 #ifndef TRANSITPILOT_TROUTE_T_H
 #define TRANSITPILOT_TROUTE_T_H
 
-#include "../debugmalloc.h"
+#include "../lib/debugmalloc.h"
 #include "tstop_t.h"
 #include "tline_t.h"
 

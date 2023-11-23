@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include <string.h>
-#include "../debugmalloc.h"
+#include "../lib/debugmalloc.h"
 #include "tstop_t.h"
 
 typedef struct TStop_t TStop;

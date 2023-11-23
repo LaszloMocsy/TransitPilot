@@ -4,11 +4,11 @@ Console-based public transport route finder program
 
 ## Examples
 
-These examples are using the [demo-config.txt](./configurations/demo-config.txt) configuration file.
+These examples are using the [demo-config.txt](configs/demo-config.txt) configuration file.
 
-The map for the demo ([file](./configurations/maps/demo-config.svg)):
+The map for the demo ([file](configs/maps/demo-config.svg)):
 
-![file](./configurations/maps/demo-config.svg)
+![file](configs/maps/demo-config.svg)
 
 ### Basic route
 

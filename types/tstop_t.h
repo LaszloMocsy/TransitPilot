@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include <string.h>
-#include "../debugmalloc.h"
+#include "../lib/debugmalloc.h"
 #include "tline_t.h"
 
 typedef struct TLines_t TLine;

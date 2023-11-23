@@ -5,7 +5,7 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(TransitPilot
         main.c
-        debugmalloc.h
+        lib/debugmalloc.h
         load.c
         load.h
         types/tstop_t.c
@@ -16,4 +16,5 @@ add_executable(TransitPilot
         pathfinder.h
         types/troute_t.c
         types/troute_t.h
+        lib/econio.c
 )

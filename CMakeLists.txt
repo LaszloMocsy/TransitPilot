@@ -17,4 +17,6 @@ add_executable(TransitPilot
         types/troute_t.c
         types/troute_t.h
         lib/econio.c
+        menu.c
+        menu.h
 )

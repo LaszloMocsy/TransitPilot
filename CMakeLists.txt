@@ -19,4 +19,6 @@ add_executable(TransitPilot
         lib/econio.c
         menu.c
         menu.h
+        lib/console.c
+        lib/console.h
 )

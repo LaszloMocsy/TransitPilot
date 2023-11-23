@@ -14,7 +14,13 @@ int main(int argc, char *argv[]) {
         perror("[E_0x3]: Config file loading has failed!");
     } else {
         econio_set_title("Transit Pilot v1");
-        ProgramLoop(allStops_head, allLines_head);
+        ClearConsole();
+        ProgramLoop();
+
+        printf("\n");
+        econio_textcolor(COL_DARKGRAY);
+        PrintString("Program terminated!", "", "", CONSOLE_WIDTH, TextAlignRight, true);
+        econio_sleep(2);
     }
 
     TStop_freeArray(allStops_head);

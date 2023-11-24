@@ -52,7 +52,7 @@ void TLine_addStop(TLine *line, TStop *stop, int time);
 /// \return The number of stops
 int TLine_GetNumberOfStops(TLine *line);
 
-/// Get the number of travelling time on a line
+/// Get the number of traveling times on a line
 /// \param line The TLine that has the travelling times
 /// \return The number of travelling times
 int TLine_GetNumberOfTimes(TLine *line);
@@ -62,7 +62,7 @@ int TLine_GetNumberOfTimes(TLine *line);
 /// \return The number of lines in the array
 int TLine_GetCount(TLine *head);
 
-/// Get the travelling time between the two stop on the line
+/// Get the traveling time between the two stops on the line
 /// \param line The same line where the stops are on
 /// \param stopA The first stop
 /// \param stopB The second stop

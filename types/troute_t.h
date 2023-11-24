@@ -21,12 +21,12 @@ typedef struct TRoute_t {
 TRoute *TRoute_init(TStop *stop, TLine *line);
 
 /// Free up a single struct.<br/>
-/// <p style="color:orange;">Note that the each TStops and each TLines will not be free!</p>
+/// <p style="color:orange;">Note that each TStops and each TLines will not be free!</p>
 /// \param stop The TRoute that needs to be free
 void TRoute_free(TRoute *route);
 
 /// Free up the whole chained array
-/// <p style="color:orange;">Note that the each TStops and each TLines will not be free!</p>
+/// <p style="color:orange;">Note that each TStops and each TLines will not be free!</p>
 /// \param head The head of the chained array
 void TRoute_freeArray(TRoute *head);
 
@@ -48,7 +48,7 @@ TRoute *TRoute_pop(TRoute *head, TRoute *route);
 /// \param line The TLine that needs to be added
 void TRoute_addData(TRoute *route, TStop *stop, TLine *line);
 
-/// Create a new route with the same data as the given route, but without the last added stop and line.<br/>
+/// Create a new route with the same data as the given route but without the last added stop and line.<br/>
 /// <b style="color:red;">This function allocates memory dynamically. After use, free it up!</b>
 /// \param route The route that needs to be copied
 /// \return A newly allocated TRoute's memory address
@@ -88,7 +88,7 @@ bool TRoute_IsStopOnRoute(TRoute *route, TStop *stop);
 /// \return Number of found possible transfers
 int TRoute_GetTransfers(TRoute *route, TStop ***stops, TLine ***lines);
 
-/// Get the route's travelling time summary
+/// Get the route's traveling time summary
 /// \param route The route that contains the data
 /// \return Travelling time in minutes
 int TRoute_GetTravellingTime(TRoute *route);

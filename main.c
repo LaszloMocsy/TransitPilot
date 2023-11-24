@@ -16,12 +16,11 @@ int main(int argc, char *argv[]) {
         econio_set_title("Transit Pilot v1");
         ClearConsole();
         ProgramLoop();
-
-        printf("\n");
-        econio_textcolor(COL_DARKGRAY);
-        PrintString("Program terminated!", "", "", CONSOLE_WIDTH, TextAlignRight, true);
-        econio_sleep(2);
     }
+
+    econio_textcolor(COL_DARKGRAY);
+    PrintString("Program terminated!", "", "", CONSOLE_WIDTH, TextAlignRight, true);
+    econio_sleep(2);
 
     TStop_freeArray(allStops_head);
     TLine_freeArray(allLines_head);

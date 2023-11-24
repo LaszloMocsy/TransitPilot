@@ -23,6 +23,20 @@ void GoToXY(int x, int y) {
     econio_gotoxy(x, y);
 }
 
+void WaitForEnter() {
+    econio_textcolor(COL_DARKGRAY);
+    PrintString("Press [ENTER] to continue", "\n", "", CONSOLE_WIDTH, TextAlignMiddle, false);
+    econio_textcolor(COL_RESET);
+    econio_rawmode();
+    int pressedKey;
+    do pressedKey = econio_getch();
+    while (pressedKey != KEY_ENTER);
+    econio_normalmode();
+    GoToXY(0, COORD_Y);
+    PrintLine_Single(' ');
+    GoToXY(0, COORD_Y);
+}
+
 char *TruncateString(char *text, int maxLength) {
     if (strlen(text) <= maxLength)
         return text;
@@ -101,16 +115,24 @@ void PrintBlock(char *text, TextAlign textAlign) {
     PrintLine('O', '=');
 }
 
-int ItemSelector(char *title, char **items, int itemsCount, TextAlign titleAlign) {
+int ItemSelector(char *title, char **items, int itemsCount, int showItems, TextAlign titleAlign) {
     PrintLine_Single(' ');
     PrintString(title, " ", " ", CONSOLE_WIDTH - 2, titleAlign, true);
-    PrintLine_Single(' ');
 
-    int key, selectedItem = 0, startListingFrom = 0, maxListingFrom = itemsCount < 6 ? 0 : itemsCount - 5;
+    int key, selectedItem = 0, startListingFrom = 0;
+    int maxListingFrom = itemsCount <= showItems ? 0 : itemsCount - showItems;
+    int listingCursor = showItems % 2 == 0 ? showItems / 2 : (showItems / 2) + 1;
 
     econio_rawmode();
     do {
-        for (int count = 0, index = 0; count < min(5, itemsCount); ++count, ++index) {
+        char counterText[CONSOLE_WIDTH];
+        sprintf(counterText, "%d/%d", startListingFrom + selectedItem + 1, itemsCount);
+        econio_textcolor(COL_DARKGRAY);
+        PrintString(counterText, " ", " ", CONSOLE_WIDTH - 2, TextAlignRight, true);
+        econio_textcolor(COL_RESET);
+        PrintLine_Single(' ');
+
+        for (int count = 0, index = 0; count < min(showItems, itemsCount); ++count, ++index) {
             econio_textcolor(COL_BLUE);
             PrintString_Full(count == selectedItem ? ">" : " ", " ", "", false);
             econio_textcolor(COL_RESET);
@@ -122,20 +144,23 @@ int ItemSelector(char *title, char **items, int itemsCount, TextAlign titleAlign
             key = econio_getch();
             switch (key) {
                 case KEY_UP:
-                    if ((selectedItem <= 2 && selectedItem != 0 && startListingFrom == 0) || selectedItem > 2)
+                    if ((selectedItem <= listingCursor && selectedItem != 0 && startListingFrom == 0) ||
+                        selectedItem > listingCursor)
                         --selectedItem;
-                    else if (selectedItem == 2)
+                    else if (selectedItem == listingCursor)
                         --startListingFrom;
-                    GoToXY(COORD_X, COORD_Y - min(5, itemsCount) - 1);
+                    GoToXY(COORD_X, COORD_Y - min(showItems, itemsCount) - 3);
                     break;
                 case KEY_DOWN:
-                    if ((selectedItem >= 2 && selectedItem != min(4, itemsCount - 1) &&
+                    if ((selectedItem >= listingCursor && selectedItem != min(showItems - 1, itemsCount - 1) &&
                          startListingFrom == maxListingFrom) ||
-                        selectedItem < 2)
+                        selectedItem < listingCursor)
                         ++selectedItem;
-                    else if (selectedItem == 2 && startListingFrom != maxListingFrom)
+                    else if (selectedItem == listingCursor && startListingFrom != maxListingFrom)
                         ++startListingFrom;
-                    GoToXY(COORD_X, COORD_Y - min(5, itemsCount) - 1);
+                    GoToXY(COORD_X, COORD_Y - min(showItems, itemsCount) - 3);
+                    break;
+                default:
                     break;
             }
         } while (key != KEY_UP && key != KEY_DOWN && key != KEY_ENTER && key != KEY_BACKSPACE);

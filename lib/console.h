@@ -36,6 +36,9 @@ void ClearConsole();
 /// \param y Value on the Y axis
 void GoToXY(int x, int y);
 
+/// Wait for the key ENTER to be pressed ont eh keyboard
+void WaitForEnter();
+
 /// Truncate a string that is longer than the maximum length
 /// \param text The string that should be truncated
 /// \param maxLength The specified maximum length for the text
@@ -59,15 +62,16 @@ void PrintLine(char corner, char middle);
 
 /// Print out a block with text
 /// \param text The text in the block
-/// \param textAlign Where to align the text inside the block
+/// \param textAlign The text's align inside the block
 void PrintBlock(char *text, TextAlign textAlign);
 
 /// An interactive dropdown menu
 /// \param title The title of the dropdown menu
 /// \param items The items of the dropdown menu
-/// \param itemsCount How much items are in the dropdown menu
+/// \param itemsCount The number of items in the dropdown menu
+/// \param showItems Number of item that should be shown
 /// \param titleAlign The align of the title
 /// \return -1 if there is no selection, otherwise the selected item's id from the given items array
-int ItemSelector(char *title, char **items, int itemsCount, TextAlign titleAlign);
+int ItemSelector(char *title, char **items, int itemsCount, int showItems, TextAlign titleAlign);
 
 #endif //TRANSITPILOT_CONSOLE_H

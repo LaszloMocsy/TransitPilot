@@ -10,8 +10,13 @@
 /// \return The memory address of the TStop that the user chosen
 TStop *GetStopFromInput(const char *title, int maxId, TStop *head);
 
+/// The program's loop. It runs until the user sends the exit request
+/// \param stops_head The head of the stops
+/// \param lines_head The head of the lines
+void ProgramLoop(TStop *stops_head, TLine *lines_head);
+
 int main(int argc, char *argv[]) {
-    TStop *stops_head = NULL, *stopA = NULL, *stopB = NULL;
+    TStop *stops_head = NULL;
     TLine *lines_head = NULL;
 
     if (argc < 2) {
@@ -19,11 +24,31 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    bool _loop = LoadConfiguration(argv[1], &stops_head, &lines_head);
-    if (!_loop) return 2;
+    if (!LoadConfiguration(argv[1], &stops_head, &lines_head)) return 2;
 
-    while (_loop) {
-        printf("Choose one of the following actions:\n"
+    ProgramLoop(stops_head, lines_head);
+
+    TStop_freeArray(stops_head);
+    TLine_freeArray(lines_head);
+    return 0;
+}
+
+TStop *GetStopFromInput(const char *title, int maxId, TStop *head) {
+    printf("\n=== %s ===\n\n", title);
+    int inputA;
+    do {
+        printf("Enter a valid id [0-%d]: ", maxId);
+        scanf("%d", &inputA);
+    } while (inputA < 0 || inputA > maxId);
+    return TStop_GetStopById(head, inputA);
+}
+
+void ProgramLoop(TStop *stops_head, TLine *lines_head) {
+    TStop *stopA = NULL, *stopB = NULL;
+
+    int action;
+    do {
+        printf("Choose one of the following actions: [0-5]\n"
                "[ 1 ]  List all stops (%d)\n"
                "[ 2 ]  List all lines (%d)\n"
                "[ 3 ]  Modify stop A (%s)\n"
@@ -34,7 +59,6 @@ int main(int argc, char *argv[]) {
                TLine_GetCount(lines_head),
                stopA == NULL ? "---" : stopA->name,
                stopB == NULL ? "---" : stopB->name);
-        int action;
         do {
             printf("> ");
             scanf("%d", &action);
@@ -64,28 +88,11 @@ int main(int argc, char *argv[]) {
                     printf("\n=== Route planning ===\n\n");
                     FindPath(stopA, stopB);
                     break;
-                case 0:
-                    _loop = false;
-                    break;
                 default:
                     // Invalid action was submitted, it will ask again for an action
                     break;
             }
         } while (action != 0 && !(action >= 1 && action <= 5));
         printf("\n");
-    }
-
-    TStop_freeArray(stops_head);
-    TLine_freeArray(lines_head);
-    return 0;
-}
-
-TStop *GetStopFromInput(const char *title, int maxId, TStop *head) {
-    printf("\n=== %s ===\n\n", title);
-    int inputA;
-    do {
-        printf("Enter a valid id [0-%d]: ", maxId);
-        scanf("%d", &inputA);
-    } while (inputA < 0 || inputA > maxId);
-    return TStop_GetStopById(head, inputA);
+    } while (action != 0);
 }
